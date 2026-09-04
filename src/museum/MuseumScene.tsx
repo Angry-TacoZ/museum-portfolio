@@ -41,7 +41,7 @@ export function MuseumScene(props: MuseumSceneProps) {
         <KayExhibit active={station.id === 'kay'} moving={moving} shapeX={kayShape.x} shapeScale={kayShape.scale} onContinue={onContinue} />
         <VictorExhibit active={station.id === 'victor'} moving={moving} physics={physics} onContinue={onContinue} />
         <JamesExhibit active={station.id === 'james'} />
-        <ContactShadows position={[0, 0, -13]} scale={32} opacity={0.28} blur={2.8} far={7} />
+        <ContactShadows position={[0, 0, -13]} scale={32} opacity={0.14} blur={3.2} far={7} color="#565750" />
       </Suspense>
     </Canvas>
   )

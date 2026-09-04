@@ -25,4 +25,4 @@ The museum uses React for accessible content and controls, React Three Fiber for
 
 ## Art direction
 
-The environment combines restrained charcoal museum architecture and warm gallery lighting with original ink-and-paper interpretation surfaces. Hand-drawn diagrams, taped placards, annotated controls, and project pin-ups carry the approachable visual voice without copying third-party illustrations or brand assets.
+The environment uses pale paper-like architecture, simplified grayscale forms, charcoal contours, original hand-drawn diagrams, and a single restrained light-blue accent. Taped placards, annotated controls, and project pin-ups make the spatial environment and interpretation surfaces feel like one illustrated editorial system without copying third-party illustrations or brand assets.
