@@ -22,3 +22,7 @@ npm.cmd run build
 ```
 
 The museum uses React for accessible content and controls, React Three Fiber for architecture and exhibit objects, and Framer Motion for interface transitions. Camera poses and route order live in `src/museum/stations.ts`.
+
+## Art direction
+
+The environment combines restrained charcoal museum architecture and warm gallery lighting with original ink-and-paper interpretation surfaces. Hand-drawn diagrams, taped placards, annotated controls, and project pin-ups carry the approachable visual voice without copying third-party illustrations or brand assets.

@@ -39,7 +39,13 @@ export function PortfolioPreview({ open, onClose }: { open: boolean, onClose: ()
             </div>
             <div className="project-list">
               {projects.map(([title, description], index) => (
-                <article key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{description}</p></div><span aria-hidden="true">↗</span></article>
+                <article key={title}>
+                  <i className="card-tape" aria-hidden="true" />
+                  <span className="project-number">0{index + 1}</span>
+                  <div className={`project-doodle project-doodle--${index + 1}`} aria-hidden="true"><i /><i /><i /></div>
+                  <div><h3>{title}</h3><p>{description}</p></div>
+                  <span className="project-arrow" aria-hidden="true">↗</span>
+                </article>
               ))}
             </div>
             <p className="placeholder-note">Project links and full case studies are intentionally reserved for the next pass.</p>

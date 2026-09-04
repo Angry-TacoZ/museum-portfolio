@@ -1,4 +1,5 @@
 import { ContinueTourSign } from '../interactions/ContinueTourSign'
+import { IllustratedPlacard } from './IllustratedPlacard'
 
 export function KayExhibit({ active, moving, shapeX, shapeScale, onContinue }: { active: boolean, moving: boolean, shapeX: number, shapeScale: number, onContinue: () => void }) {
   return (
@@ -10,7 +11,8 @@ export function KayExhibit({ active, moving, shapeX, shapeScale, onContinue }: {
         <mesh position={[shapeX, 0, 0.18]} scale={shapeScale}><boxGeometry args={[0.5, 0.5, 0.08]} /><meshStandardMaterial color="#e1a152" emissive="#b06b22" emissiveIntensity={0.5} /></mesh>
       </group>
       <mesh position={[0, 0.38, -8.95]} rotation={[-0.05, 0, 0]}><boxGeometry args={[3.35, 0.15, 1.6]} /><meshStandardMaterial color="#d1c7b5" /></mesh>
-      {active && <ContinueTourSign position={[2.75, 1.2, -10.72]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} />}
+      {active && <IllustratedPlacard variant="kay" position={[1.85, 3.15, -10.68]} />}
+      {active && <ContinueTourSign position={[0, 0.55, -10.3]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} />}
     </group>
   )
 }

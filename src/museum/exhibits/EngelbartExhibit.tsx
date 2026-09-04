@@ -1,5 +1,6 @@
 import { Line } from '@react-three/drei'
 import { ContinueTourSign } from '../interactions/ContinueTourSign'
+import { IllustratedPlacard } from './IllustratedPlacard'
 
 export function EngelbartExhibit({ active, moving, node, onContinue }: { active: boolean, moving: boolean, node: number, onContinue: () => void }) {
   const points: [number, number, number][] = [[-7.4, 2.7, -2.72], [-6.7, 3.35, -2.72], [-5.8, 2.72, -2.72], [-4.9, 3.28, -2.72]]
@@ -13,7 +14,8 @@ export function EngelbartExhibit({ active, moving, node, onContinue }: { active:
       <mesh position={[-4.55, 0.85, -2.05]} rotation={[0, 0.18, 0]}><boxGeometry args={[0.38, 0.16, 0.58]} /><meshStandardMaterial color="#d2c8b8" /></mesh>
       <Line points={points} color="#c48b4e" lineWidth={1.2} />
       {points.map((point, index) => <mesh key={index} position={point}><sphereGeometry args={[index === node ? 0.14 : 0.09, 16, 16]} /><meshStandardMaterial color={index === node ? '#f0b461' : '#817868'} emissive={index === node ? '#f0a64a' : '#000000'} emissiveIntensity={1.2} /></mesh>)}
-      {active && <ContinueTourSign position={[-3.85, 1.15, -2.62]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} />}
+      {active && <IllustratedPlacard variant="engelbart" position={[-4.7, 3.15, -2.48]} />}
+      {active && <ContinueTourSign position={[-5.8, 0.55, -2.28]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} />}
     </group>
   )
 }

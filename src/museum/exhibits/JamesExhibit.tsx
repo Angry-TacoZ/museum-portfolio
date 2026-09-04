@@ -1,4 +1,5 @@
 import { Html } from '@react-three/drei'
+import { IllustratedPlacard } from './IllustratedPlacard'
 
 export function JamesExhibit({ active }: { active: boolean }) {
   return (
@@ -15,6 +16,7 @@ export function JamesExhibit({ active }: { active: boolean }) {
           <div className="portrait-label">JAMES LANE</div>
         </Html>
       )}
+      {active && <IllustratedPlacard variant="james" position={[5.25, 3.15, -29.03]} />}
       <group position={[8.8, 1.5, -28.1]} rotation={[0, 0, -0.13]}>
         {[0, 0.58].map((x) => <mesh key={x} position={[x, 0, 0]}><boxGeometry args={[0.09, 3.1, 0.1]} /><meshStandardMaterial color="#c2b08f" /></mesh>)}
         {[-1.2, -0.65, -0.1, 0.45, 1].map((y) => <mesh key={y} position={[0.29, y, 0]}><boxGeometry args={[0.72, 0.07, 0.1]} /><meshStandardMaterial color="#c2b08f" /></mesh>)}
