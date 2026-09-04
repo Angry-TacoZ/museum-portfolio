@@ -1,5 +1,6 @@
 import type { PhysicsValues } from '../museum/exhibits/VictorExhibit'
 import type { StationId } from '../museum/stations'
+import { projectileSvgPath, projectileSvgPoints } from '../museum/physics/projectile'
 
 type Props = {
   stationId: StationId
@@ -11,7 +12,7 @@ type Props = {
   setPhysics: (value: PhysicsValues) => void
 }
 
-function InteractionSketch({ type }: { type: 'network' | 'medium' | 'feedback' }) {
+function InteractionSketch({ type, physics }: { type: 'network' | 'medium' | 'feedback', physics?: PhysicsValues }) {
   if (type === 'network') return (
     <svg className="interaction-sketch" viewBox="0 0 280 68" aria-hidden="true">
       <path d="M18 34h54M91 34h50M160 34h47M72 34l19-18v36zM141 34l19-18v36z" />
@@ -27,11 +28,15 @@ function InteractionSketch({ type }: { type: 'network' | 'medium' | 'feedback' }
       <text x="104" y="61">move + resize</text>
     </svg>
   )
+  const values = physics ?? { gravity: 5, velocity: 5, bounce: 4 }
+  const points = projectileSvgPoints(values)
+  const ball = points[Math.min(points.length - 1, Math.round(points.length * 0.2))]
   return (
     <svg className="interaction-sketch" viewBox="0 0 280 68" aria-hidden="true">
-      <path d="M16 54h246M19 52c35-54 70-54 104 0 34-43 69-43 104 0" />
-      <circle className="accent-fill" cx="70" cy="15" r="7" /><path d="M76 12c23-8 47-4 66 11M135 16l7 7-9 3" />
-      <text x="154" y="18">the idea answers back</text>
+      <path d="M16 54h246" />
+      <path className="trajectory-line" d={projectileSvgPath(values)} />
+      <circle className="accent-fill" cx={ball.x} cy={ball.y} r="7" />
+      <text x="171" y="14">the idea answers back</text>
     </svg>
   )
 }
@@ -73,7 +78,7 @@ export function ExhibitInteraction(props: Props) {
         <p className="panel-kicker">LIVE ARTIFACT · IMMEDIATE FEEDBACK</p>
         <h2 id="interaction-heading">Touch the behavior</h2>
         <p>Change the system and watch its meaning move immediately.</p>
-        <InteractionSketch type="feedback" />
+        <InteractionSketch type="feedback" physics={props.physics} />
         <label htmlFor="gravity-control">Gravity <output htmlFor="gravity-control">{props.physics.gravity.toFixed(1)}</output><input id="gravity-control" type="range" min="1" max="10" step="0.5" value={props.physics.gravity} onChange={(event) => update('gravity', Number(event.target.value))} /></label>
         <label htmlFor="velocity-control">Velocity <output htmlFor="velocity-control">{props.physics.velocity.toFixed(1)}</output><input id="velocity-control" type="range" min="1" max="10" step="0.5" value={props.physics.velocity} onChange={(event) => update('velocity', Number(event.target.value))} /></label>
         <label htmlFor="bounce-control">Bounce <output htmlFor="bounce-control">{props.physics.bounce.toFixed(1)}</output><input id="bounce-control" type="range" min="1" max="8" step="0.5" value={props.physics.bounce} onChange={(event) => update('bounce', Number(event.target.value))} /></label>

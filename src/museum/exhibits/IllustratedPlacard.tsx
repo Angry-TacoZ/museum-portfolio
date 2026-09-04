@@ -1,4 +1,5 @@
 import { Html } from '@react-three/drei'
+import { projectileSvgPath, projectileSvgPoints, type PhysicsValues } from '../physics/projectile'
 
 export type PlacardVariant = 'engelbart' | 'kay' | 'victor' | 'james'
 
@@ -9,7 +10,7 @@ const placards: Record<PlacardVariant, { heading: string, note: string }> = {
   james: { heading: 'Still arranging the pieces', note: 'Prototype → notice → revise → repeat.' },
 }
 
-function PlacardDrawing({ variant }: { variant: PlacardVariant }) {
+function PlacardDrawing({ variant, physics }: { variant: PlacardVariant, physics?: PhysicsValues }) {
   if (variant === 'engelbart') {
     return (
       <svg viewBox="0 0 240 100" aria-hidden="true">
@@ -32,12 +33,16 @@ function PlacardDrawing({ variant }: { variant: PlacardVariant }) {
     )
   }
   if (variant === 'victor') {
+    const values = physics ?? { gravity: 5, velocity: 5, bounce: 4 }
+    const viewport = { left: 22, right: 216, floor: 82, ceiling: 16 }
+    const points = projectileSvgPoints(values, viewport)
+    const ball = points[Math.min(points.length - 1, Math.round(points.length * 0.2))]
     return (
       <svg viewBox="0 0 240 100" aria-hidden="true">
-        <path d="M22 82h194M27 79C57 4 87 7 116 76c28-58 56-61 87 2" />
-        <circle className="accent-fill" cx="76" cy="20" r="7" />
-        <path d="M82 18c31-11 64-5 88 17M163 27l7 8-10 3" />
-        <text x="136" y="54">change a value</text><text x="23" y="97">feedback now, not later</text>
+        <path d="M22 82h194" />
+        <path className="trajectory-line" d={projectileSvgPath(values, viewport)} />
+        <circle className="accent-fill" cx={ball.x} cy={ball.y} r="7" />
+        <text x="139" y="30">change a value</text><text x="23" y="97">feedback now, not later</text>
       </svg>
     )
   }
@@ -51,7 +56,7 @@ function PlacardDrawing({ variant }: { variant: PlacardVariant }) {
   )
 }
 
-export function IllustratedPlacard({ variant, position }: { variant: PlacardVariant, position: [number, number, number] }) {
+export function IllustratedPlacard({ variant, position, physics }: { variant: PlacardVariant, position: [number, number, number], physics?: PhysicsValues }) {
   const content = placards[variant]
   return (
     <Html position={position} center transform distanceFactor={3.35} zIndexRange={[8, 0]}>
@@ -59,7 +64,7 @@ export function IllustratedPlacard({ variant, position }: { variant: PlacardVari
         <i className="tape tape--left" /><i className="tape tape--right" />
         <p>{variant === 'james' ? 'PIN-UP / NOT FINAL' : 'FIELD NOTE'}</p>
         <h3>{content.heading}</h3>
-        <PlacardDrawing variant={variant} />
+        <PlacardDrawing variant={variant} physics={physics} />
         <small>{content.note}</small>
       </article>
     </Html>

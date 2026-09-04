@@ -1,10 +1,12 @@
 import { Edges } from '@react-three/drei'
 import { ContinueTourSign } from '../interactions/ContinueTourSign'
 import { IllustratedPlacard } from './IllustratedPlacard'
+import { PortraitMural } from './PortraitMural'
 
 export function KayExhibit({ active, moving, shapeX, shapeScale, onContinue }: { active: boolean, moving: boolean, shapeX: number, shapeScale: number, onContinue: () => void }) {
   return (
     <group>
+      <PortraitMural image="/portraits/alan-kay-ink.png" position={[-0.05, 2.92, -10.87]} scale={[3.7, 4.65]} opacity={0.27} />
       <mesh position={[0, 0.72, -9.7]} castShadow><cylinderGeometry args={[1.7, 1.9, 1.4, 32]} /><meshStandardMaterial color="#c8c5bc" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
       <group position={[0, 1.8, -10.1]} rotation={[-0.1, 0, 0]}>
         <mesh><boxGeometry args={[3.4, 2.1, 0.18]} /><meshStandardMaterial color="#efede5" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>

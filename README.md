@@ -4,7 +4,7 @@ An interactive 3D museum portfolio prototype about Douglas Engelbart, Alan Kay, 
 
 ## Scope
 
-This is an art-direction and interaction MVP for private local review. It proves the spatial narrative, guided navigation, camera choreography, basic exhibit interactions, responsive presentation, and portfolio reveal. Portraits, detailed biographies, final project case studies, and production hosting are intentionally out of scope.
+This is an art-direction and interaction MVP for private local review. It proves the spatial narrative, guided navigation, camera choreography, exhibit interactions, responsive presentation, and portfolio reveal. Detailed biographies, final project case studies, and production hosting are intentionally out of scope.
 
 ## Run locally
 
@@ -26,3 +26,5 @@ The museum uses React for accessible content and controls, React Three Fiber for
 ## Art direction
 
 The environment uses pale paper-like architecture, simplified grayscale forms, charcoal contours, original hand-drawn diagrams, and a single restrained light-blue accent. Taped placards, annotated controls, and project pin-ups make the spatial environment and interpretation surfaces feel like one illustrated editorial system without copying third-party illustrations or brand assets.
+
+The three pioneer exhibits use locally stored, deterministically processed portrait murals. Source credits, licenses, and regeneration instructions are documented in [`docs/PORTRAIT_SOURCES.md`](docs/PORTRAIT_SOURCES.md).

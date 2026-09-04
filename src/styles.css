@@ -80,6 +80,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .interaction-sketch text { fill: #55554e; stroke: none; font-family: 'Caveat', cursive; font-size: 11px; }
 .interaction-sketch .accent-fill { fill: var(--accent); stroke: var(--ink); }
 .interaction-sketch .accent-stroke { stroke: var(--accent); }
+.interaction-sketch .trajectory-line, .illustrated-placard .trajectory-line { stroke-dasharray: 4 2; }
 .node-controls { display: flex; flex-wrap: wrap; gap: .4rem; }
 .node-controls button { border: 1.5px solid var(--ink); border-radius: 2px 4px 2px 3px; background: transparent; color: var(--ink); padding: .45rem .6rem; font-family: 'Manrope', sans-serif; font-size: .58rem; font-weight: 600; cursor: pointer; }
 .node-controls button:hover, .node-controls button.active { border-color: var(--ink); color: var(--ink); background: rgba(155,207,227,.52); box-shadow: 2px 2px 0 var(--ink); }
