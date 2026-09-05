@@ -21,6 +21,8 @@ npm.cmd run test
 npm.cmd run build
 ```
 
+To verify the no-WebGL experience locally, open `http://127.0.0.1:5173/?forceWebglFailure=1`. The failure switch is restricted to localhost and exposes the persistent DOM fallback navigation.
+
 The museum uses React for accessible content and controls, React Three Fiber for architecture and exhibit objects, and Framer Motion for interface transitions. Camera poses and route order live in `src/museum/stations.ts`.
 
 ## Art direction

@@ -20,10 +20,12 @@ type MuseumSceneProps = {
   physics: PhysicsValues
   onContinue: () => void
   onArrival: () => void
+  forceFailure?: boolean
 }
 
 export function MuseumScene(props: MuseumSceneProps) {
-  const { station, moving, reducedMotion, engelbartNode, kayShape, physics, onContinue, onArrival } = props
+  const { station, moving, reducedMotion, engelbartNode, kayShape, physics, onContinue, onArrival, forceFailure = false } = props
+  if (forceFailure) throw new Error('Forced WebGL failure for fallback verification')
   return (
     <Canvas
       className="museum-canvas"

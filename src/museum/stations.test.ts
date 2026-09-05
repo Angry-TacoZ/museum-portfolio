@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { nextStation, stations } from './stations'
+import { nextStation, previousStation, stations } from './stations'
 
 describe('museum route', () => {
   it('defines a complete five-station guided path', () => {
@@ -7,6 +7,9 @@ describe('museum route', () => {
     expect(nextStation('entrance')).toBe('engelbart')
     expect(nextStation('victor')).toBe('james')
     expect(nextStation('james')).toBeNull()
+    expect(previousStation('entrance')).toBeNull()
+    expect(previousStation('victor')).toBe('kay')
+    expect(previousStation('james')).toBe('victor')
   })
 
   it('keeps every camera pose explicit and finite', () => {

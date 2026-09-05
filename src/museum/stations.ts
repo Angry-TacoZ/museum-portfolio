@@ -50,3 +50,8 @@ export const stationById = Object.fromEntries(stations.map((station) => [station
 export function nextStation(id: StationId): StationId | null {
   return stationById[id].nextStation
 }
+
+export function previousStation(id: StationId): StationId | null {
+  const index = stationById[id].index
+  return index > 0 ? stations[index - 1].id : null
+}

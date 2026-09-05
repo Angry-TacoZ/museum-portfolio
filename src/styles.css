@@ -37,6 +37,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 
 .exhibit-copy { position: fixed; z-index: 3; left: clamp(1.5rem, 6vw, 6.5rem); top: 21%; width: min(31rem, 38vw); pointer-events: none; }
 .exhibit-copy > * { pointer-events: auto; }
+.exhibit-copy--entrance { left: 18%; top: 29%; width: min(34rem, 43vw); }
+.exhibit-copy--entrance h1 { font-size: clamp(2.6rem, 4.55vw, 4.8rem); }
 .eyebrow, .panel-kicker { font-family: 'Manrope', sans-serif; font-size: .64rem; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; color: var(--accent-ink); }
 .exhibit-copy h1 { margin: 1.15rem 0 1.2rem; font-size: clamp(2.45rem, 5vw, 5.8rem); line-height: .89; letter-spacing: -.055em; font-weight: 300; }
 .exhibit-copy h1 span { display: block; }
@@ -111,9 +113,12 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .project-doodle--3 { transform: rotate(-4deg); }
 .project-doodle--4 { border-radius: 4px; transform: rotate(2deg); }
 .placeholder-note { color: #716d64; font-size: .72rem; margin: 1.2rem 0 0; }
-.webgl-fallback { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; text-align: center; color: var(--ink); background: radial-gradient(circle, #f8f6ef, #dedbd2 72%); }
+.webgl-fallback { position: absolute; inset: 0; z-index: 2; color: var(--ink); background: radial-gradient(circle, #f8f6ef, #dedbd2 72%); }
+.webgl-fallback__content { position: absolute; top: 5.4rem; left: 50%; width: min(34rem, calc(100vw - 2.4rem)); transform: translateX(-50%); text-align: center; }
 .webgl-fallback p { font-size: 1.4rem; margin: 0 0 .5rem; }
 .webgl-fallback span { color: #99978f; }
+.webgl-fallback__controls { display: flex; justify-content: center; flex-wrap: wrap; gap: .65rem; margin-top: .85rem; }
+.webgl-fallback__controls button { border: 1.5px solid var(--ink); background: var(--paper-bright); padding: .65rem .8rem; font-size: .62rem; font-weight: 600; letter-spacing: .08em; cursor: pointer; box-shadow: 3px 3px 0 var(--accent); }
 
 @media (max-width: 760px) {
   .museum-header { padding: 1.15rem; }
@@ -121,6 +126,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .route-progress i { width: 4rem; }
   .museum-app::after { background: linear-gradient(0deg, rgba(239,237,230,.97) 0%, rgba(239,237,230,.72) 62%, rgba(239,237,230,.18) 100%); }
   .exhibit-copy { left: 1.2rem; right: 1.2rem; top: auto; bottom: 4.2rem; width: auto; }
+  .exhibit-copy--entrance { left: 1.2rem; top: auto; width: auto; }
   .exhibit-copy h1, .exhibit-copy:not(.exhibit-copy--entrance) h1 { font-size: clamp(2rem, 11vw, 3.4rem); margin: .65rem 0 .7rem; }
   .station-summary { font-size: .82rem; line-height: 1.5; margin: 0 0 .7rem; max-width: 33rem; }
   .interaction-panel { right: 1.2rem; left: auto; bottom: 4.3rem; width: min(17rem, calc(100vw - 2.4rem)); padding: .8rem; background: var(--paper-bright); border: 1.5px solid var(--ink); }
