@@ -10,7 +10,7 @@ function Wall({ position, width = 9, unfinished = false }: { position: [number, 
   )
 }
 
-export function MuseumEnvironment({ stationIndex }: { stationIndex: number }) {
+export function MuseumEnvironment() {
   return (
     <group>
       <color attach="background" args={['#efede6']} />
@@ -24,10 +24,10 @@ export function MuseumEnvironment({ stationIndex }: { stationIndex: number }) {
         <planeGeometry args={[34, 54]} />
         <meshStandardMaterial color="#f3f1ea" roughness={1} />
       </mesh>
-      {stationIndex === 0 && <Wall position={[0, 2.75, 0]} width={12} />}
-      {stationIndex <= 1 && <Wall position={[-5.8, 2.75, -3]} width={8.5} />}
-      {stationIndex <= 2 && <Wall position={[0, 2.75, -11]} width={8.5} />}
-      {stationIndex <= 3 && <Wall position={[5.8, 2.75, -19]} width={8.5} />}
+      <Wall position={[0, 2.75, 0]} width={12} />
+      <Wall position={[-5.8, 2.75, -3]} width={8.5} />
+      <Wall position={[0, 2.75, -11]} width={8.5} />
+      <Wall position={[5.8, 2.75, -19]} width={8.5} />
       <Wall position={[5.8, 2.75, -29.5]} width={9.5} unfinished />
       {[-5.8, 0, 5.8].map((x, index) => (
         <mesh key={x} position={[x, 5.37, -3 - index * 8]}>

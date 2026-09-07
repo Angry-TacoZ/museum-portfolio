@@ -30,6 +30,7 @@ function App() {
   const [kayShape, setKayShape] = useState({ x: 0, scale: 1 })
   const [physics, setPhysics] = useState<PhysicsValues>({ gravity: 5, velocity: 5, bounce: 4 })
   const reducedMotion = useReducedMotion()
+  const effectiveReducedMotion = reducedMotion || motionPaused
   const station = stationById[stationId]
   useEffect(() => {
     document.querySelector('.museum-shell')?.scrollTo({ top: 0 })
@@ -80,7 +81,7 @@ function App() {
   }, [navigateFallback, station])
 
   return (
-    <main className={`museum-app museum-app--${stationId}${webglFailed ? ' museum-app--fallback' : ''}`}>
+    <main className={`museum-app museum-app--${stationId}${webglFailed ? ' museum-app--fallback' : ''}${effectiveReducedMotion ? ' museum-app--reduced-motion' : ''}`}>
       <div className="museum-shell" inert={portfolioOpen}>
       <a className="skip-link" href="#exhibit-content">Skip to exhibit content</a>
       <header className="museum-header">
@@ -96,12 +97,12 @@ function App() {
 
       <ErrorBoundary fallback={fallback} onError={handleWebglError}>
         <Suspense fallback={<p className="scene-loading" role="status">Preparing the exhibition… You can explore selected work while it loads.</p>}>
-        <MuseumScene station={station} moving={moving} reducedMotion={reducedMotion || motionPaused} engelbartNode={engelbartNode} kayShape={kayShape} physics={physics} onContinue={continueTour} onArrival={() => setMoving(false)} forceFailure={forceWebglFailure} />
+        <MuseumScene station={station} moving={moving} reducedMotion={effectiveReducedMotion} engelbartNode={engelbartNode} kayShape={kayShape} physics={physics} onContinue={continueTour} onArrival={() => setMoving(false)} forceFailure={forceWebglFailure} />
         </Suspense>
       </ErrorBoundary>
 
       <div id="exhibit-content" tabIndex={-1}>
-        <ExhibitOverlay station={station} moving={moving} reducedMotion={reducedMotion} onContinue={continueTour} onPortfolio={() => setPortfolioOpen(true)} />
+        <ExhibitOverlay station={station} moving={moving} reducedMotion={effectiveReducedMotion} onContinue={continueTour} onPortfolio={() => setPortfolioOpen(true)} />
         {station.interactionEnabled && station.id !== 'james' && !moving && (
           <ExhibitInteraction stationId={station.id} engelbartNode={engelbartNode} setEngelbartNode={setEngelbartNode} kayShape={kayShape} setKayShape={setKayShape} physics={physics} setPhysics={setPhysics} />
         )}
@@ -113,7 +114,7 @@ function App() {
         {station.nextStation ? <button disabled={moving} onClick={continueTour}>Next →</button> : <button onClick={() => setPortfolioOpen(true)}>View work ↗</button>}
       </nav></footer>
       </div>
-      <PortfolioPreview open={portfolioOpen} onClose={() => setPortfolioOpen(false)} />
+      <PortfolioPreview open={portfolioOpen} onClose={() => setPortfolioOpen(false)} reducedMotion={effectiveReducedMotion} />
     </main>
   )
 }

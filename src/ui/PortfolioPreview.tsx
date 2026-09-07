@@ -1,9 +1,8 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { projects } from './projects'
 
-export function PortfolioPreview({ open, onClose }: { open: boolean, onClose: () => void }) {
-  const reducedMotion = useReducedMotion()
+export function PortfolioPreview({ open, onClose, reducedMotion }: { open: boolean, onClose: () => void, reducedMotion: boolean }) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const dialogRef = useRef<HTMLElement>(null)
   useEffect(() => {
@@ -26,7 +25,7 @@ export function PortfolioPreview({ open, onClose }: { open: boolean, onClose: ()
   return (
     <AnimatePresence>
       {open && (
-        <motion.div className="portfolio-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <motion.div className="portfolio-backdrop" initial={reducedMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: reducedMotion ? 1 : 0 }}>
           <motion.section ref={dialogRef} className="portfolio-preview" role="dialog" aria-modal="true" aria-labelledby="portfolio-title" initial={{ y: reducedMotion ? 0 : '100%' }} animate={{ y: 0 }} exit={{ y: reducedMotion ? 0 : '100%' }} transition={{ type: 'spring', damping: 28, stiffness: 240 }}>
             <div className="portfolio-header">
               <div><p className="panel-kicker">JAMES LANE / SELECTED WORK</p><h2 id="portfolio-title">From idea to interface.</h2></div>

@@ -9,16 +9,16 @@ This is an art-direction and interaction MVP for private local review. It proves
 ## Run locally
 
 ```powershell
-npm.cmd install
-npm.cmd run dev
+npm install
+npm run dev
 ```
 
 ## Verify
 
 ```powershell
-npm.cmd run lint
-npm.cmd run test
-npm.cmd run build
+npm run lint
+npm run test
+npm run build
 ```
 
 To verify the no-WebGL experience locally, open `http://127.0.0.1:5173/?forceWebglFailure=1`. The failure switch is restricted to localhost and exposes the persistent DOM fallback navigation.

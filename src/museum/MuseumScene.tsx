@@ -37,7 +37,7 @@ export function MuseumScene(props: MuseumSceneProps) {
       <Suspense fallback={null}>
         <CameraController station={station} reducedMotion={reducedMotion} onArrival={onArrival} />
         <MuseumLighting />
-        <MuseumEnvironment stationIndex={station.index} />
+        <MuseumEnvironment />
         <EntranceExhibit active={station.id === 'entrance'} moving={moving} onContinue={onContinue} />
         <EngelbartExhibit active={station.id === 'engelbart'} moving={moving} node={engelbartNode} onContinue={onContinue} />
         <KayExhibit active={station.id === 'kay'} moving={moving} shapeX={kayShape.x} shapeScale={kayShape.scale} onContinue={onContinue} />

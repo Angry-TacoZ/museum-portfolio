@@ -1,5 +1,6 @@
 import { Edges, Html } from '@react-three/drei'
 import { IllustratedPlacard } from './IllustratedPlacard'
+import { TargetedSpotLight } from '../TargetedSpotLight'
 
 export function JamesExhibit({ active }: { active: boolean }) {
   return (
@@ -21,7 +22,7 @@ export function JamesExhibit({ active }: { active: boolean }) {
         {[0, 0.58].map((x) => <mesh key={x} position={[x, 0, 0]}><boxGeometry args={[0.09, 3.1, 0.1]} /><meshStandardMaterial color="#a3a49e" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>)}
         {[-1.2, -0.65, -0.1, 0.45, 1].map((y) => <mesh key={y} position={[0.29, y, 0]}><boxGeometry args={[0.72, 0.07, 0.1]} /><meshStandardMaterial color="#a3a49e" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>)}
       </group>
-      <spotLight position={[3.3, 3.5, -26.5]} target-position={[5.8, 1, -29]} intensity={10} angle={0.55} penumbra={0.6} color="#d9edf5" />
+      <TargetedSpotLight position={[3.3, 3.5, -26.5]} target={[5.8, 1, -29]} intensity={10} angle={0.55} penumbra={0.6} color="#d9edf5" />
     </group>
   )
 }

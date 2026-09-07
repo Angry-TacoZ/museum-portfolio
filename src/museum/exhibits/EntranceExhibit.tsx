@@ -2,7 +2,7 @@ import { Edges, Html } from '@react-three/drei'
 
 export function EntranceExhibit({ active, moving, onContinue }: { active: boolean, moving: boolean, onContinue: () => void }) {
   return (
-    <group position={[0, 0, 0]} visible={active}>
+    <group position={[0, 0, 0]}>
       <mesh position={[0, 2.15, 0.18]} castShadow>
         <boxGeometry args={[7.6, 3.4, 0.18]} />
         <meshStandardMaterial color="#e4e1d7" roughness={0.96} />

@@ -145,6 +145,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+.museum-app--reduced-motion *, .museum-app--reduced-motion *::before, .museum-app--reduced-motion *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 
 /* A reading margin beside the installation; one stable home for each control. */
 .museum-shell { position: absolute; inset: 0; }
