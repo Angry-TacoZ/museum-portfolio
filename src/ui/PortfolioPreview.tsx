@@ -1,14 +1,9 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
-
-const projects = [
-  ['CogFit Jobs', 'Making cognitive work easier to understand and act on.'],
-  ['Blue', 'A product concept built through close observation and rapid iteration.'],
-  ['Delivery Composer', 'Turning complex delivery planning into a clearer working surface.'],
-  ['jamesai.space', 'Experiments in AI, interfaces, and tools for thinking.'],
-]
+import { projects } from './projects'
 
 export function PortfolioPreview({ open, onClose }: { open: boolean, onClose: () => void }) {
+  const reducedMotion = useReducedMotion()
   const closeRef = useRef<HTMLButtonElement>(null)
   const dialogRef = useRef<HTMLElement>(null)
   useEffect(() => {
@@ -32,23 +27,22 @@ export function PortfolioPreview({ open, onClose }: { open: boolean, onClose: ()
     <AnimatePresence>
       {open && (
         <motion.div className="portfolio-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <motion.section ref={dialogRef} className="portfolio-preview" role="dialog" aria-modal="true" aria-labelledby="portfolio-title" initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={{ type: 'spring', damping: 28, stiffness: 240 }}>
+          <motion.section ref={dialogRef} className="portfolio-preview" role="dialog" aria-modal="true" aria-labelledby="portfolio-title" initial={{ y: reducedMotion ? 0 : '100%' }} animate={{ y: 0 }} exit={{ y: reducedMotion ? 0 : '100%' }} transition={{ type: 'spring', damping: 28, stiffness: 240 }}>
             <div className="portfolio-header">
-              <div><p className="panel-kicker">CURRENT WORK · SELECTED PROJECTS</p><h2 id="portfolio-title">What he’s building</h2></div>
+              <div><p className="panel-kicker">JAMES LANE / SELECTED WORK</p><h2 id="portfolio-title">From idea to interface.</h2></div>
               <button ref={closeRef} className="close-button" onClick={onClose}>Close</button>
             </div>
-            <div className="project-list">
-              {projects.map(([title, description], index) => (
-                <article key={title}>
-                  <i className="card-tape" aria-hidden="true" />
-                  <span className="project-number">0{index + 1}</span>
-                  <div className={`project-doodle project-doodle--${index + 1}`} aria-hidden="true"><i /><i /><i /></div>
-                  <div><h3>{title}</h3><p>{description}</p></div>
-                  <span className="project-arrow" aria-hidden="true">↗</span>
+            <p className="portfolio-intro">Interfaces for understanding a decision, changing it, and seeing what happens next. Three projects, with the implementation open for inspection.</p>
+            <div className="selected-projects">
+              {projects.map((project, index) => (
+                <article key={project.title}>
+                  <span className="project-number" aria-hidden="true">0{index + 1}</span>
+                  <div className="project-title"><p className="panel-kicker">{project.category}</p><h3>{project.title}</h3><p>{project.description}</p><small>{project.stack}</small></div>
+                  <div className="project-decision"><h4>A design decision</h4><p>{project.decision}</p><p className="project-boundary">{project.boundary}</p><div className="project-links"><a href={project.url} target="_blank" rel="noreferrer">Read the build ↗<span className="sr-only">: {project.title} (new tab)</span></a>{project.demo && <a href={project.demo} target="_blank" rel="noreferrer">Open project ↗<span className="sr-only">: {project.title} (new tab)</span></a>}</div></div>
                 </article>
               ))}
             </div>
-            <p className="placeholder-note">Project links and full case studies are intentionally reserved for the next pass.</p>
+            <div className="portfolio-outro"><p>The exhibition ends here.<br /><strong>The work keeps evolving.</strong></p><a href="https://james-lane-web-resume.web.app/" target="_blank" rel="noreferrer">Résumé & contact ↗<span className="sr-only"> (new tab)</span></a></div>
           </motion.section>
         </motion.div>
       )}

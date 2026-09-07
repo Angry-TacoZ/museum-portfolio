@@ -59,7 +59,7 @@ function PlacardDrawing({ variant, physics }: { variant: PlacardVariant, physics
 export function IllustratedPlacard({ variant, position, physics }: { variant: PlacardVariant, position: [number, number, number], physics?: PhysicsValues }) {
   const content = placards[variant]
   return (
-    <Html position={position} center transform distanceFactor={3.35} zIndexRange={[8, 0]}>
+    <Html position={position} center transform distanceFactor={2.5} zIndexRange={[3, 0]}>
       <article className={`illustrated-placard illustrated-placard--${variant}`} aria-hidden="true">
         <i className="tape tape--left" /><i className="tape tape--right" />
         <p>{variant === 'james' ? 'PIN-UP / NOT FINAL' : 'FIELD NOTE'}</p>

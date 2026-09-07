@@ -14,7 +14,7 @@ export function ContinueTourSign({ position, label, disabled, onContinue }: Cont
         <boxGeometry args={[3.2, 0.78, 0.11]} />
         <meshStandardMaterial color="#cac7be" roughness={1} metalness={0} />
       </mesh>
-      <Html center transform distanceFactor={3.65} zIndexRange={[20, 0]}>
+      <Html center transform distanceFactor={2.5} zIndexRange={[3, 0]}>
         <button className="tour-sign" disabled={disabled} onClick={onContinue} aria-label={label.replace('→', '').trim()}>
           <span>{disabled ? 'MOVING…' : label}</span>
           {!disabled && <small>Click to continue</small>}

@@ -37,11 +37,11 @@ export function MuseumScene(props: MuseumSceneProps) {
       <Suspense fallback={null}>
         <CameraController station={station} reducedMotion={reducedMotion} onArrival={onArrival} />
         <MuseumLighting />
-        <MuseumEnvironment />
+        <MuseumEnvironment stationIndex={station.index} />
         <EntranceExhibit active={station.id === 'entrance'} moving={moving} onContinue={onContinue} />
         <EngelbartExhibit active={station.id === 'engelbart'} moving={moving} node={engelbartNode} onContinue={onContinue} />
         <KayExhibit active={station.id === 'kay'} moving={moving} shapeX={kayShape.x} shapeScale={kayShape.scale} onContinue={onContinue} />
-        <VictorExhibit active={station.id === 'victor'} moving={moving} physics={physics} onContinue={onContinue} />
+        <VictorExhibit active={station.id === 'victor'} moving={moving} physics={physics} reducedMotion={reducedMotion} onContinue={onContinue} />
         <JamesExhibit active={station.id === 'james'} />
         <ContactShadows position={[0, 0, -13]} scale={32} opacity={0.14} blur={3.2} far={7} color="#565750" />
       </Suspense>

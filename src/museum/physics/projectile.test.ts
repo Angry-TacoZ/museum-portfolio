@@ -1,9 +1,23 @@
 import { describe, expect, it } from 'vitest'
-import { PROJECTILE_BOUNDS, createProjectileState, getProjectileParameters, sampleProjectilePath, stepProjectile } from './projectile'
+import { PROJECTILE_BOUNDS, advanceProjectile, createProjectileState, getProjectileParameters, sampleProjectilePath, stepProjectile } from './projectile'
 
 const defaults = { gravity: 5, velocity: 5, bounce: 4 }
 
 describe('projectile simulation', () => {
+  it('produces the same position at 30, 60, and 144 frames per second', () => {
+    const run = (fps: number) => {
+      let clock = { state: createProjectileState(defaults), remainder: 0 }
+      for (let frame = 0; frame < fps * 2; frame++) clock = advanceProjectile(clock, defaults, 1 / fps)
+      return clock.state
+    }
+    expect(run(30)).toEqual(run(60))
+    expect(run(144)).toEqual(run(60))
+  })
+
+  it('bounds catch-up after a suspended tab', () => {
+    const clock = { state: createProjectileState(defaults), remainder: 0 }
+    expect(advanceProjectile(clock, defaults, 60)).toEqual(advanceProjectile(clock, defaults, .25))
+  })
   it('maps controls to physically meaningful parameters', () => {
     expect(getProjectileParameters({ ...defaults, gravity: 10 }).gravity).toBeGreaterThan(getProjectileParameters({ ...defaults, gravity: 1 }).gravity)
     expect(getProjectileParameters({ ...defaults, velocity: 10 }).horizontalVelocity).toBeGreaterThan(getProjectileParameters({ ...defaults, velocity: 1 }).horizontalVelocity)

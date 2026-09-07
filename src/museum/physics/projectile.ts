@@ -13,6 +13,20 @@ export const PROJECTILE_BOUNDS = {
   maxY: 3.42,
 } as const
 
+export const SIMULATION_STEP = 1 / 90
+export type ProjectileClock = { state: ProjectileState, remainder: number }
+
+// Fixed integration steps keep the live artifact and its drawn preview identical.
+export function advanceProjectile(clock: ProjectileClock, values: PhysicsValues, delta: number): ProjectileClock {
+  let remainder = clock.remainder + Math.min(Math.max(delta, 0), 0.25)
+  let state = clock.state
+  while (remainder + 1e-10 >= SIMULATION_STEP) {
+    state = stepProjectile(state, values, SIMULATION_STEP)
+    remainder -= SIMULATION_STEP
+  }
+  return { state, remainder: Math.max(0, remainder) }
+}
+
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 const mapRange = (value: number, inputMin: number, inputMax: number, outputMin: number, outputMax: number) => {
   const progress = (clamp(value, inputMin, inputMax) - inputMin) / (inputMax - inputMin)
@@ -55,7 +69,7 @@ export function stepProjectile(state: ProjectileState, values: PhysicsValues, el
   return next
 }
 
-export function sampleProjectilePath(values: PhysicsValues, stepSeconds = 1 / 90): ProjectileState[] {
+export function sampleProjectilePath(values: PhysicsValues, stepSeconds = SIMULATION_STEP): ProjectileState[] {
   const points = [createProjectileState(values)]
   let state = points[0]
   for (let index = 0; index < 900; index += 1) {
