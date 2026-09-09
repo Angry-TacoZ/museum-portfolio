@@ -16,10 +16,13 @@ npm run dev
 ## Verify
 
 ```powershell
-npm run lint
-npm run test
-npm run build
+npx playwright install chromium
+npm run verify
 ```
+
+`npm run verify` runs lint, unit tests, the production build, and Chromium smoke tests on Windows and Linux. CI uses the same command on both operating systems. On Linux, install browser system dependencies with `npx playwright install --with-deps chromium`.
+
+The committed suite in `tests/browser/` checks desktop/mobile guided navigation, entrance skip links, WebGL failure navigation, dialog focus through camera arrival, keyboard focus trapping and restoration, controls, overflow, reset locking, and reduced motion. Run `npm run test:browser` after building to repeat just the browser checks. It starts an isolated production preview on port 4175; that port must be free. Failures retain screenshots and traces under `test-results/`, and CI uploads the report as an artifact. These smoke checks do not replace visual composition review.
 
 To verify the no-WebGL experience locally, open `http://127.0.0.1:5173/?forceWebglFailure=1`. The failure switch is restricted to localhost and exposes the persistent DOM fallback navigation.
 

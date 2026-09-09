@@ -36,7 +36,7 @@ export function CameraController({ station, reducedMotion, onArrival }: CameraCo
 
   useFrame((_, delta) => {
     // Preserve the intended wall-clock duration when a large WebGL viewport drops frames.
-    elapsed.current += Math.min(delta, 0.25)
+    elapsed.current += delta
     const progress = Math.min(elapsed.current / duration.current, 1)
     const eased = easeInOutCubic(progress)
     camera.position.lerpVectors(startPosition.current, endPosition.current, eased)

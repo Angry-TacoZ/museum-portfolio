@@ -31,6 +31,8 @@ function App() {
   const [physics, setPhysics] = useState<PhysicsValues>({ gravity: 5, velocity: 5, bounce: 4 })
   const reducedMotion = useReducedMotion()
   const effectiveReducedMotion = reducedMotion || motionPaused
+  const openPortfolio = useCallback(() => setPortfolioOpen(true), [])
+  const closePortfolio = useCallback(() => setPortfolioOpen(false), [])
   const station = stationById[stationId]
   useEffect(() => {
     document.querySelector('.museum-shell')?.scrollTo({ top: 0 })
@@ -83,11 +85,15 @@ function App() {
   return (
     <main className={`museum-app museum-app--${stationId}${webglFailed ? ' museum-app--fallback' : ''}${effectiveReducedMotion ? ' museum-app--reduced-motion' : ''}`}>
       <div className="museum-shell" inert={portfolioOpen}>
-      <a className="skip-link" href="#exhibit-content">Skip to exhibit content</a>
+      <a className="skip-link" href="#exhibit-content" onClick={(event) => {
+        const entrance = document.getElementById('entrance-content')
+        const target = entrance && entrance.getClientRects().length ? entrance : document.getElementById('exhibit-content')
+        if (target) { event.preventDefault(); target.focus() }
+      }}>Skip to exhibit content</a>
       <header className="museum-header">
         <a className="wordmark" href="#" onClick={(event) => { event.preventDefault(); navigateToStation('entrance') }}>JAMES LANE <span>/ EXHIBIT 01</span></a>
         <button className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)}>{motionPaused ? 'Resume motion' : 'Pause motion'}</button>
-        <button className="header-work" onClick={() => setPortfolioOpen(true)}>Selected work ↗</button>
+        <button className="header-work" onClick={openPortfolio}>Selected work ↗</button>
         <div className="route-progress" aria-label={`Station ${station.index + 1} of ${stations.length}`}>
           <span>{String(station.index + 1).padStart(2, '0')}</span>
           <i><b style={{ width: `${((station.index + 1) / stations.length) * 100}%` }} /></i>
@@ -102,7 +108,7 @@ function App() {
       </ErrorBoundary>
 
       <div id="exhibit-content" tabIndex={-1}>
-        <ExhibitOverlay station={station} moving={moving} reducedMotion={effectiveReducedMotion} onContinue={continueTour} onPortfolio={() => setPortfolioOpen(true)} />
+        <ExhibitOverlay station={station} moving={moving} reducedMotion={effectiveReducedMotion} onContinue={continueTour} onPortfolio={openPortfolio} />
         {station.interactionEnabled && station.id !== 'james' && !moving && (
           <ExhibitInteraction stationId={station.id} engelbartNode={engelbartNode} setEngelbartNode={setEngelbartNode} kayShape={kayShape} setKayShape={setKayShape} physics={physics} setPhysics={setPhysics} />
         )}
@@ -111,10 +117,10 @@ function App() {
       <footer className="museum-footer"><span>DESIGNED & BUILT BY JAMES LANE</span><nav aria-label="Exhibition navigation">
         <button disabled={moving || !previousStation(stationId)} onClick={() => { const previous = previousStation(stationId); if (previous) navigateToStation(previous) }}>← Previous</button>
         <span aria-live="polite">{moving ? 'Moving…' : `${station.index + 1} / ${stations.length}`}</span>
-        {station.nextStation ? <button disabled={moving} onClick={continueTour}>Next →</button> : <button onClick={() => setPortfolioOpen(true)}>View work ↗</button>}
+        {station.nextStation ? <button disabled={moving} onClick={continueTour}>Next →</button> : <button onClick={openPortfolio}>View work ↗</button>}
       </nav></footer>
       </div>
-      <PortfolioPreview open={portfolioOpen} onClose={() => setPortfolioOpen(false)} reducedMotion={effectiveReducedMotion} />
+      <PortfolioPreview open={portfolioOpen} onClose={closePortfolio} reducedMotion={effectiveReducedMotion} />
     </main>
   )
 }

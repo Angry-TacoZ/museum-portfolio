@@ -2,5 +2,7 @@ node_modules
 dist
 output/playwright
 .playwright-cli
+playwright-report
+test-results
 .vite
 *.local

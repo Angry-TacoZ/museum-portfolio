@@ -14,7 +14,7 @@ export function EntranceExhibit({ active, moving, onContinue }: { active: boolea
         <Edges color="#262722" threshold={10} />
       </mesh>
       {active && <Html position={[0, 2.15, 0.3]} center transform distanceFactor={4} zIndexRange={[3, 0]}>
-        <section className="entrance-board">
+        <section id="entrance-content" className="entrance-board" tabIndex={-1} aria-label="Entrance exhibit">
           <p className="eyebrow">JAMES LANE · AN INTERACTIVE EXHIBITION</p>
           <h1>Tools for<br />thinking<span className="ink-star" aria-hidden="true">✳</span></h1>
           <p>Three ideas that changed computing.<br />A small museum about building on them.</p>
