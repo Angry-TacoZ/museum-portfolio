@@ -1,5 +1,21 @@
 import { test, expect, type Page } from '@playwright/test'
 
+const webglFallback = process.env.MUSEUM_TEST_WEBGL_FALLBACK === 'true'
+
+async function openMuseum(page: Page, path = '/') {
+  const target = webglFallback && path === '/' ? '/?forceWebglFailure=1' : path
+  await page.goto(target)
+}
+
+async function expectInitialContent(page: Page) {
+  if (webglFallback) {
+    await expect(page.getByText('3D view unavailable', { exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Tools for thinking' })).toBeVisible()
+  } else {
+    await expect(page.locator('#entrance-content')).toBeVisible()
+  }
+}
+
 async function skip(page: Page) {
   await page.keyboard.press('Tab')
   await expect(page.getByRole('link', { name: 'Skip to exhibit content' })).toBeFocused()
@@ -13,21 +29,25 @@ async function next(page: Page) {
 }
 
 test('desktop skip reaches visible entrance and keyboard enters the tour', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.locator('#entrance-content')).toBeVisible()
+  await openMuseum(page)
+  const content = page.locator(webglFallback ? '#exhibit-content' : '#entrance-content')
+  await expectInitialContent(page)
   await skip(page)
-  await expect(page.locator('#entrance-content')).toBeFocused()
+  await expect(content).toBeFocused()
   await page.keyboard.press('Tab')
-  await expect(page.getByRole('button', { name: 'Enter the exhibition' })).toBeFocused()
+  const enterTour = webglFallback
+    ? page.getByRole('navigation', { name: 'Exhibition navigation', exact: true }).getByRole('button', { name: 'Next →' })
+    : page.getByRole('button', { name: 'Enter the exhibition' })
+  await expect(enterTour).toBeFocused()
   await page.keyboard.press('Enter')
   await expect(page.getByText('2 / 5', { exact: true })).toBeVisible()
 })
 
 test('dialog keeps focus through camera arrival and returns to its opener', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.locator('#entrance-content')).toBeVisible()
+  await openMuseum(page)
+  await expectInitialContent(page)
   await next(page)
-  await expect(page.getByText('Moving…', { exact: true })).toBeVisible()
+  if (!webglFallback) await expect(page.getByText('Moving…', { exact: true })).toBeVisible()
   const opener = page.getByRole('button', { name: 'Selected work ↗' })
   await opener.click()
   await expect(page.getByRole('dialog')).toBeVisible()
@@ -53,8 +73,9 @@ for (const mobile of [false, true]) {
     const errors: string[] = []
     page.on('pageerror', error => errors.push(error.message))
     if (mobile) await page.setViewportSize({ width: 390, height: 844 })
-    await page.goto('/')
-    await expect(page.locator('canvas')).toBeVisible()
+    await openMuseum(page)
+    if (webglFallback) await expect(page.getByText('3D view unavailable', { exact: true })).toBeVisible()
+    else await expect(page.locator('canvas')).toBeVisible()
     if (mobile) {
       await skip(page)
       await expect(page.locator('#exhibit-content')).toBeFocused()
@@ -76,14 +97,16 @@ for (const mobile of [false, true]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
     await page.keyboard.press('Escape')
     await page.getByRole('link', { name: /^JAMES LANE/ }).click()
-    await expect(page.getByRole('navigation', { name: 'Exhibition navigation', exact: true }).getByRole('button', { name: 'Next →' })).toBeDisabled()
+    const nextButton = page.getByRole('navigation', { name: 'Exhibition navigation', exact: true }).getByRole('button', { name: 'Next →' })
+    if (webglFallback) await expect(nextButton).toBeEnabled()
+    else await expect(nextButton).toBeDisabled()
     await expect(page.getByText('1 / 5', { exact: true })).toBeVisible()
     expect(errors).toEqual([])
   })
 
   test(`${mobile ? 'mobile' : 'desktop'} WebGL failure retains skip and complete navigation`, async ({ page }) => {
     if (mobile) await page.setViewportSize({ width: 390, height: 844 })
-    await page.goto('/?forceWebglFailure=1')
+    await openMuseum(page, '/?forceWebglFailure=1')
     await expect(page.getByText('3D view unavailable', { exact: true })).toBeVisible()
     await skip(page)
     await expect(page.locator('#exhibit-content')).toBeFocused()
@@ -100,8 +123,8 @@ for (const mobile of [false, true]) {
 for (const preference of ['toggle', 'os'] as const) {
   test(`${preference} reduced motion covers UI and route`, async ({ page }) => {
     if (preference === 'os') await page.emulateMedia({ reducedMotion: 'reduce' })
-    await page.goto('/')
-    await expect(page.locator('#entrance-content')).toBeVisible()
+    await openMuseum(page)
+    await expectInitialContent(page)
     if (preference === 'toggle') await page.getByRole('button', { name: 'Pause motion' }).click()
     await expect(page.locator('main')).toHaveClass(/museum-app--reduced-motion/)
     await next(page)
