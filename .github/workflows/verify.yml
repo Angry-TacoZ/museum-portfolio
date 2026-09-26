@@ -1,0 +1,32 @@
+name: Verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm run verify
+        # Windows hosted Chromium hangs while rendering this WebGL scene; Ubuntu tests the full 3D path.
+        env:
+          MUSEUM_TEST_WEBGL_FALLBACK: ${{ runner.os == 'Windows' }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failure-${{ matrix.os }}
+          path: |
+            playwright-report/
+            test-results/

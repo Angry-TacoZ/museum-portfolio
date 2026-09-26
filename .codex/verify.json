@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "scope": "public-low-risk",
+  "secret_scan": true,
+  "checks": [
+    { "name": "Repository verification", "command": "node", "arguments": ["scripts/verify.mjs"], "timeout_seconds": 600, "required": true }
+  ]
+}

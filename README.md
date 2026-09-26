@@ -1,0 +1,35 @@
+# The Tools That Changed How We Think
+
+An interactive 3D museum portfolio prototype about Douglas Engelbart, Alan Kay, Bret Victor, and an unfinished installation for James Lane.
+
+## Scope
+
+This is an art-direction and interaction MVP for private local review. It proves the spatial narrative, guided navigation, camera choreography, exhibit interactions, responsive presentation, and portfolio reveal. Detailed biographies, final project case studies, and production hosting are intentionally out of scope.
+
+## Run locally
+
+```powershell
+npm install
+npm run dev
+```
+
+## Verify
+
+```powershell
+npx playwright install chromium
+npm run verify
+```
+
+`npm run verify` runs lint, unit tests, the production build, and Chromium smoke tests on Windows and Linux. CI uses the same command on both operating systems. On Linux, install browser system dependencies with `npx playwright install --with-deps chromium`.
+
+The committed suite in `tests/browser/` checks desktop/mobile guided navigation, entrance skip links, WebGL failure navigation, dialog focus through camera arrival, keyboard focus trapping and restoration, controls, overflow, reset locking, and reduced motion. Run `npm run test:browser` after building to repeat just the browser checks. It starts an isolated production preview on port 4175; that port must be free. Failures retain screenshots and traces under `test-results/`, and CI uploads the report as an artifact. These smoke checks do not replace visual composition review.
+
+To verify the no-WebGL experience locally, open `http://127.0.0.1:5173/?forceWebglFailure=1`. The failure switch is restricted to localhost and exposes the persistent DOM fallback navigation.
+
+The museum uses React for accessible content and controls, React Three Fiber for architecture and exhibit objects, and Framer Motion for interface transitions. Camera poses and route order live in `src/museum/stations.ts`.
+
+## Art direction
+
+The environment uses pale paper-like architecture, simplified grayscale forms, charcoal contours, original hand-drawn diagrams, and a single restrained light-blue accent. Taped placards, annotated controls, and project pin-ups make the spatial environment and interpretation surfaces feel like one illustrated editorial system without copying third-party illustrations or brand assets.
+
+The three pioneer exhibits use locally stored, deterministically processed portrait murals. Source credits, licenses, and regeneration instructions are documented in [`docs/PORTRAIT_SOURCES.md`](docs/PORTRAIT_SOURCES.md).
