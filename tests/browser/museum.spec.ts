@@ -1,10 +1,15 @@
 import { test, expect, type Page } from '@playwright/test'
 
 const webglFallback = process.env.MUSEUM_TEST_WEBGL_FALLBACK === 'true'
+const pagesBasePath = process.env.MUSEUM_TEST_BASE_PATH === '/museum-portfolio/' ? '/museum-portfolio/' : '/'
+
+function appPath(path: string) {
+  return pagesBasePath === '/' ? path : `${pagesBasePath}${path.replace(/^\//, '')}`
+}
 
 async function openMuseum(page: Page, path = '/') {
   const target = webglFallback && path === '/' ? '/?forceWebglFailure=1' : path
-  await page.goto(target)
+  await page.goto(appPath(target))
 }
 
 async function expectInitialContent(page: Page) {
@@ -27,6 +32,30 @@ async function next(page: Page) {
   await expect(button).toBeEnabled()
   await button.click()
 }
+
+test(`${pagesBasePath === '/' ? 'Root path' : 'Pages base path'} loads all portrait textures in the WebGL scene`, async ({ page }) => {
+  test.skip(webglFallback, 'Windows CI uses the accessible fallback; Ubuntu verifies full WebGL.')
+  const portraits = new Map<string, number>()
+  const errors: string[] = []
+  page.on('response', response => {
+    const pathname = new URL(response.url()).pathname
+    if (pathname.endsWith('-ink.png')) portraits.set(pathname, response.status())
+  })
+  page.on('pageerror', error => errors.push(error.message))
+
+  await openMuseum(page)
+  await expect(page.locator('canvas')).toBeVisible()
+  await expect.poll(() => portraits.size).toBe(3)
+
+  const expectedPortraits = [
+    `${pagesBasePath}portraits/alan-kay-ink.png`,
+    `${pagesBasePath}portraits/bret-victor-ink.png`,
+    `${pagesBasePath}portraits/douglas-engelbart-ink.png`,
+  ].sort()
+  expect([...portraits.keys()].sort()).toEqual(expectedPortraits)
+  expect([...portraits.values()]).toEqual([200, 200, 200])
+  expect(errors).toEqual([])
+})
 
 test('desktop skip reaches visible entrance and keyboard enters the tour', async ({ page }) => {
   await openMuseum(page)

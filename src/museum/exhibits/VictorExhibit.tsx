@@ -25,7 +25,7 @@ export function VictorExhibit({ active, moving, physics, reducedMotion, onContin
     <group>
       <mesh position={[5.8, 2.25, -18.72]}><boxGeometry args={[5.7, 3.5, 0.2]} /><meshStandardMaterial color="#cbc8bf" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
       <mesh position={[5.8, 2.3, -18.58]}><planeGeometry args={[4.9, 2.72]} /><meshStandardMaterial color="#e8e6de" roughness={1} /></mesh>
-      <PortraitMural image="/portraits/bret-victor-ink.png" position={[8.05, 2, -18.48]} scale={[1.2, 1.5]} opacity={0.65} />
+      <PortraitMural image={`${import.meta.env.BASE_URL}portraits/bret-victor-ink.png`} position={[8.05, 2, -18.48]} scale={[1.2, 1.5]} opacity={0.65} />
       <mesh ref={ball} position={[3.72, 1.16, -18.38]} castShadow><sphereGeometry args={[0.2, 24, 24]} /><meshStandardMaterial color="#91cbe2" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
       <mesh position={[5.26, 0.93, -18.4]}><boxGeometry args={[3.1, 0.06, 0.08]} /><meshStandardMaterial color="#282924" /></mesh>
       {[4, 4.65, 5.3, 5.95, 6.6].map((x) => <mesh key={x} position={[x, 1.15, -18.35]}><boxGeometry args={[0.025, 0.22, 0.04]} /><meshStandardMaterial color="#282924" /></mesh>)}

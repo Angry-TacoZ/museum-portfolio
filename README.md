@@ -20,7 +20,7 @@ npx playwright install chromium
 npm run verify
 ```
 
-`npm run verify` runs lint, unit tests, the production build, and Chromium smoke tests on Windows and Linux. CI uses the same command on both operating systems. On Linux, install browser system dependencies with `npx playwright install --with-deps chromium`.
+`npm run verify` runs lint, unit tests, production builds for both `/` and `/museum-portfolio/`, and Chromium smoke tests from both paths. CI runs the same command on Windows and Ubuntu: Windows exercises the accessible fallback, while Ubuntu exercises the full WebGL scene and checks that all three portrait textures load. On Linux, install browser system dependencies with `npx playwright install --with-deps chromium`.
 
 ## Deploy to GitHub Pages
 
