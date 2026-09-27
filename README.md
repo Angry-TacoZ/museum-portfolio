@@ -4,7 +4,7 @@ An interactive 3D museum portfolio prototype about Douglas Engelbart, Alan Kay, 
 
 ## Scope
 
-This is an art-direction and interaction MVP for private local review. It proves the spatial narrative, guided navigation, camera choreography, exhibit interactions, responsive presentation, and portfolio reveal. Detailed biographies, final project case studies, and production hosting are intentionally out of scope.
+This is an art-direction and interaction MVP. It proves the spatial narrative, guided navigation, camera choreography, exhibit interactions, responsive presentation, and portfolio reveal. Detailed biographies and final project case studies remain out of scope.
 
 ## Run locally
 
@@ -21,6 +21,10 @@ npm run verify
 ```
 
 `npm run verify` runs lint, unit tests, the production build, and Chromium smoke tests on Windows and Linux. CI uses the same command on both operating systems. On Linux, install browser system dependencies with `npx playwright install --with-deps chromium`.
+
+## Deploy to GitHub Pages
+
+The `Deploy GitHub Pages` workflow verifies pull requests and builds the app for the repository's `/museum-portfolio/` URL path without publishing. On pushes to `main`, it verifies, builds, and publishes the site. To enable the first deployment, a repository maintainer must open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**. After that, deployments run automatically on pushes to `main`; the workflow can also be started manually from the Actions tab.
 
 The committed suite in `tests/browser/` checks desktop/mobile guided navigation, entrance skip links, WebGL failure navigation, dialog focus through camera arrival, keyboard focus trapping and restoration, controls, overflow, reset locking, and reduced motion. Run `npm run test:browser` after building to repeat just the browser checks. It starts an isolated production preview on port 4175; that port must be free. Failures retain screenshots and traces under `test-results/`, and CI uploads the report as an artifact. These smoke checks do not replace visual composition review.
 
