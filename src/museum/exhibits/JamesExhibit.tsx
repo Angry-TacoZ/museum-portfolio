@@ -15,7 +15,7 @@ export function JamesExhibit({ active }: { active: boolean }) {
       <ConstructionTape position={[5.8, 1.31, -28.25]} rotation={[-Math.PI / 2, 0, 0.14]} />
       <mesh position={[3.65, 0.45, -28.8]} rotation={[0, 0.25, 0]} castShadow><boxGeometry args={[1.5, 0.9, 1.2]} /><meshStandardMaterial color="#d6d3ca" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
       <mesh position={[7.7, 1.75, -29]}><boxGeometry args={[1.55, 2.35, 0.18]} /><meshStandardMaterial color="#d5d2c9" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
-      <PortraitMural image={`${import.meta.env.BASE_URL}portraits/james-lane-ink.png`} position={[7.7, 1.78, -28.88]} scale={[1.22, 1.72]} opacity={1} />
+      <PortraitMural image={`${import.meta.env.BASE_URL}portraits/james-lane-ink.webp`} position={[7.7, 1.78, -28.88]} scale={[1.22, 1.72]} opacity={1} />
       {active && (
         <Html position={[7.7, 0.72, -28.65]} center transform distanceFactor={4}>
           <div className="portrait-label">JAMES LANE</div>
