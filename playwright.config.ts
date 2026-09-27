@@ -1,5 +1,8 @@
 import { defineConfig } from '@playwright/test'
 
+const pagesBasePath = process.env.MUSEUM_TEST_BASE_PATH === '/museum-portfolio/' ? '/museum-portfolio/' : '/'
+const previewBaseArg = pagesBasePath === '/' ? '' : ' --base=/museum-portfolio/'
+
 export default defineConfig({
   testDir: './tests/browser',
   timeout: 45_000,
@@ -15,8 +18,8 @@ export default defineConfig({
     launchOptions: { args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] },
   },
   webServer: {
-    command: 'npm run preview -- --host 127.0.0.1 --port 4175 --strictPort',
-    url: 'http://127.0.0.1:4175',
+    command: `npm run preview -- --host 127.0.0.1 --port 4175 --strictPort${previewBaseArg}`,
+    url: `http://127.0.0.1:4175${pagesBasePath}`,
     reuseExistingServer: false,
   },
 })
