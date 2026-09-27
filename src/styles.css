@@ -166,14 +166,16 @@ button:disabled { opacity: .45; cursor: default; }
 .interaction-panel h2 { font-size: 1rem; }
 .interaction-panel > p:not(.panel-kicker) { font-size: .72rem; }
 .exhibit-copy--entrance { display: none; }
-.entrance-board { width: 700px; height: 290px; padding: 12px 20px; color: var(--ink); }
+.entrance-board { width: 700px; height: 340px; padding: 12px 20px; color: var(--ink); }
 .entrance-board h1 { position: relative; margin: 12px 0; font-size: 80px; line-height: .92; font-weight: 400; letter-spacing: -.065em; }
 .entrance-board > p:not(.eyebrow) { margin: 10px 0 20px; font-size: 15px; line-height: 1.55; }
 .ink-star { position: absolute; right: 50px; top: 22px; color: var(--accent-ink); font-family: serif; font-size: 115px; transform: rotate(-12deg); }
 .entrance-board__bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #aaa79d; padding-top: 13px; }
-.entrance-board__bottom button { border: 0; background: transparent; padding: 0; font-size: 15px; font-weight: 600; cursor: pointer; }
+.entrance-board__bottom button { border: 1.5px solid var(--ink); border-radius: 2px 5px 3px 6px; background: var(--paper-bright); padding: 9px 12px; font-size: 15px; font-weight: 600; cursor: pointer; transform: rotate(-.4deg); box-shadow: 3px 3px 0 var(--accent); transition: transform .2s, box-shadow .2s, background .2s; }
+.entrance-board__bottom button:not(:disabled):is(:hover, :focus-visible) { transform: rotate(.2deg) translateY(-2px); background: #eef8fc; box-shadow: 5px 5px 0 var(--accent); }
+.entrance-board__bottom button:disabled { cursor: default; }
 .entrance-board__bottom button span { display: inline-block; margin-left: 16px; transition: transform .2s; }
-.entrance-board__bottom button:hover span { transform: translate(3px,-3px); }
+.entrance-board__bottom button:not(:disabled):is(:hover, :focus-visible) span { transform: translate(3px,-3px); }
 .entrance-board__bottom > span { font-family: Caveat,cursive; font-size: 20px; }
 .source-link { display: inline-block; font-size: .7rem; color: #34677d; text-underline-offset: 4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }

@@ -14,7 +14,8 @@ const easeInOutCubic = (value: number) => value < 0.5
   : 1 - Math.pow(-2 * value + 2, 3) / 2
 
 export function CameraController({ station, reducedMotion, onArrival }: CameraControllerProps) {
-  const { camera } = useThree()
+  const { camera, size } = useThree()
+  const portraitTargetOffset = station.id === 'james' && size.width / size.height < 1.2 ? 1 : 0
   const startPosition = useRef(new Vector3(...station.cameraPosition))
   const startTarget = useRef(new Vector3(...station.cameraTarget))
   const currentTarget = useRef(new Vector3(...station.cameraTarget))
@@ -29,10 +30,12 @@ export function CameraController({ station, reducedMotion, onArrival }: CameraCo
     startTarget.current.copy(currentTarget.current)
     endPosition.current.set(...station.cameraPosition)
     endTarget.current.set(...station.cameraTarget)
+    // Keep the right-hand portrait in view when the exhibit canvas is narrow.
+    endTarget.current.x += portraitTargetOffset
     elapsed.current = 0
     duration.current = reducedMotion ? 0.01 : 2.05
     hasArrived.current = false
-  }, [camera, reducedMotion, station])
+  }, [camera, reducedMotion, station, portraitTargetOffset])
 
   useFrame((_, delta) => {
     // Preserve the intended wall-clock duration when a large WebGL viewport drops frames.

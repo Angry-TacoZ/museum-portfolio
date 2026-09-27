@@ -39,22 +39,33 @@ test(`${pagesBasePath === '/' ? 'Root path' : 'Pages base path'} loads all portr
   const errors: string[] = []
   page.on('response', response => {
     const pathname = new URL(response.url()).pathname
-    if (pathname.endsWith('-ink.png')) portraits.set(pathname, response.status())
+    if (/-ink\.(png|webp)$/.test(pathname)) portraits.set(pathname, response.status())
   })
   page.on('pageerror', error => errors.push(error.message))
 
   await openMuseum(page)
   await expect(page.locator('canvas')).toBeVisible()
-  await expect.poll(() => portraits.size).toBe(3)
+  await expect.poll(() => portraits.size).toBe(4)
 
   const expectedPortraits = [
     `${pagesBasePath}portraits/alan-kay-ink.png`,
     `${pagesBasePath}portraits/bret-victor-ink.png`,
     `${pagesBasePath}portraits/douglas-engelbart-ink.png`,
+    `${pagesBasePath}portraits/james-lane-ink.webp`,
   ].sort()
   expect([...portraits.keys()].sort()).toEqual(expectedPortraits)
-  expect([...portraits.values()]).toEqual([200, 200, 200])
+  expect([...portraits.values()]).toEqual([200, 200, 200, 200])
   expect(errors).toEqual([])
+})
+
+test('James portrait stays within its initial-load asset budget', async ({ request }) => {
+  // Also runs on Windows, where the browser scene uses the accessible fallback.
+  const response = await request.get(appPath('/portraits/james-lane-ink.webp'))
+  expect(response.status()).toBe(200)
+  expect(response.headers()['content-type']).toContain('image/webp')
+  const bytes = await response.body()
+  expect(bytes.byteLength).toBeGreaterThan(0)
+  expect(bytes.byteLength).toBeLessThanOrEqual(150_000)
 })
 
 test('desktop skip reaches visible entrance and keyboard enters the tour', async ({ page }) => {

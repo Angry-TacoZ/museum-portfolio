@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="96" viewBox="0 0 1024 96">
+  <defs>
+    <pattern id="stripes" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+      <rect width="17" height="36" fill="#35362f"/>
+    </pattern>
+    <clipPath id="cut-ends">
+      <path d="M6 0H1018L1021 13L1016 28L1024 43L1018 60L1021 78L1016 96H4L8 81L0 63L7 47L2 29L9 15Z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#cut-ends)">
+    <rect width="1024" height="96" fill="#ddcc92"/>
+    <path d="M0 0H1024V15H0ZM0 81H1024V96H0Z" fill="url(#stripes)"/>
+    <path d="M0 19H1024M0 77H1024" fill="none" stroke="#35362f" stroke-opacity=".35"/>
+    <text x="512" y="64" text-anchor="middle" font-family="monospace" font-size="43" font-weight="700" letter-spacing="7" fill="#35362f">UNDER CONSTRUCTION</text>
+  </g>
+</svg>

@@ -16,6 +16,7 @@ export const projects = [
     boundary: 'Portfolio demonstration using synthetic briefs and fictional people.',
     stack: 'React · FastAPI · Deterministic scoring',
     url: 'https://github.com/Angry-TacoZ/delivery-composer',
+    demo: 'https://composer.jamesai.space/',
   },
   {
     title: 'James AI', category: 'INFORMATION DESIGN / AI INTERFACES',
