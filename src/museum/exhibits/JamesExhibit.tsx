@@ -1,6 +1,7 @@
 import { Edges, Html } from '@react-three/drei'
 import { IllustratedPlacard } from './IllustratedPlacard'
 import { TargetedSpotLight } from '../TargetedSpotLight'
+import { PortraitMural } from './PortraitMural'
 
 export function JamesExhibit({ active }: { active: boolean }) {
   return (
@@ -11,7 +12,7 @@ export function JamesExhibit({ active }: { active: boolean }) {
       <mesh position={[5.8, 0.65, -28.25]} castShadow><boxGeometry args={[2.3, 1.3, 1.55]} /><meshStandardMaterial color="#c1beb5" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
       <mesh position={[3.65, 0.45, -28.8]} rotation={[0, 0.25, 0]} castShadow><boxGeometry args={[1.5, 0.9, 1.2]} /><meshStandardMaterial color="#d6d3ca" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
       <mesh position={[7.7, 1.75, -29]}><boxGeometry args={[1.55, 2.35, 0.18]} /><meshStandardMaterial color="#d5d2c9" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
-      <mesh position={[7.7, 1.78, -28.88]}><planeGeometry args={[1.22, 1.72]} /><meshStandardMaterial color="#aaa9a3" roughness={1} /></mesh>
+      <PortraitMural image={`${import.meta.env.BASE_URL}portraits/james-lane-ink.png`} position={[7.7, 1.78, -28.88]} scale={[1.22, 1.72]} opacity={1} />
       {active && (
         <Html position={[7.7, 0.72, -28.65]} center transform distanceFactor={4}>
           <div className="portrait-label">JAMES LANE</div>

@@ -45,15 +45,16 @@ test(`${pagesBasePath === '/' ? 'Root path' : 'Pages base path'} loads all portr
 
   await openMuseum(page)
   await expect(page.locator('canvas')).toBeVisible()
-  await expect.poll(() => portraits.size).toBe(3)
+  await expect.poll(() => portraits.size).toBe(4)
 
   const expectedPortraits = [
     `${pagesBasePath}portraits/alan-kay-ink.png`,
     `${pagesBasePath}portraits/bret-victor-ink.png`,
     `${pagesBasePath}portraits/douglas-engelbart-ink.png`,
+    `${pagesBasePath}portraits/james-lane-ink.png`,
   ].sort()
   expect([...portraits.keys()].sort()).toEqual(expectedPortraits)
-  expect([...portraits.values()]).toEqual([200, 200, 200])
+  expect([...portraits.values()]).toEqual([200, 200, 200, 200])
   expect(errors).toEqual([])
 })
 

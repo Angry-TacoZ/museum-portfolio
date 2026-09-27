@@ -20,7 +20,7 @@ npx playwright install chromium
 npm run verify
 ```
 
-`npm run verify` runs lint, unit tests, production builds for both `/` and `/museum-portfolio/`, and Chromium smoke tests from both paths. CI runs the same command on Windows and Ubuntu: Windows exercises the accessible fallback, while Ubuntu exercises the full WebGL scene and checks that all three portrait textures load. On Linux, install browser system dependencies with `npx playwright install --with-deps chromium`.
+`npm run verify` runs lint, unit tests, production builds for both `/` and `/museum-portfolio/`, and Chromium smoke tests from both paths. CI runs the same command on Windows and Ubuntu: Windows exercises the accessible fallback, while Ubuntu exercises the full WebGL scene and checks that all four portrait textures load. On Linux, install browser system dependencies with `npx playwright install --with-deps chromium`.
 
 ## Deploy to GitHub Pages
 
@@ -36,4 +36,4 @@ The museum uses React for accessible content and controls, React Three Fiber for
 
 The environment uses pale paper-like architecture, simplified grayscale forms, charcoal contours, original hand-drawn diagrams, and a single restrained light-blue accent. Taped placards, annotated controls, and project pin-ups make the spatial environment and interpretation surfaces feel like one illustrated editorial system without copying third-party illustrations or brand assets.
 
-The three pioneer exhibits use locally stored, deterministically processed portrait murals. Source credits, licenses, and regeneration instructions are documented in [`docs/PORTRAIT_SOURCES.md`](docs/PORTRAIT_SOURCES.md).
+The three pioneer exhibits use locally stored, deterministically processed portrait murals. The final installation includes a monochrome portrait edited from James's supplied photograph in its right-hand frame. Source credits, licenses, and generation details are documented in [`docs/PORTRAIT_SOURCES.md`](docs/PORTRAIT_SOURCES.md).
