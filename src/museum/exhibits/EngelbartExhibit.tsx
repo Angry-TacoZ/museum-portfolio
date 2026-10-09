@@ -4,7 +4,7 @@ import { IllustratedPlacard } from './IllustratedPlacard'
 import { PortraitMural } from './PortraitMural'
 import { portraitFrames } from '../framing'
 
-export function EngelbartExhibit({ active, moving, node, onContinue }: { active: boolean, moving: boolean, node: number, onContinue: () => void }) {
+export function EngelbartExhibit({ active, moving, node, onContinue, onPrevious }: { active: boolean, moving: boolean, node: number, onContinue: () => void, onPrevious: () => void }) {
   // Keep the entire network to the right of the portrait, including selected-node radii.
   const points: [number, number, number][] = [[-6.7, 2.7, -2.72], [-6, 3.35, -2.72], [-5.3, 2.72, -2.72], [-4.6, 3.28, -2.72]]
   return (
@@ -19,7 +19,7 @@ export function EngelbartExhibit({ active, moving, node, onContinue }: { active:
       <Line points={points} color="#72aac3" lineWidth={1.4} />
       {points.map((point, index) => <mesh key={index} position={point}><sphereGeometry args={[index === node ? 0.14 : 0.09, 16, 16]} /><meshStandardMaterial color={index === node ? '#8fc8df' : '#5e605a'} roughness={1} /><Edges color="#272823" threshold={10} /></mesh>)}
       {active && <IllustratedPlacard variant="engelbart" position={[-4.7, 1.95, -2.48]} />}
-      {active && <ContinueTourSign position={[-5.8, 0.55, -2.28]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} />}
+      {active && <ContinueTourSign position={[-5.8, 0.55, -2.28]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} onPrevious={onPrevious} />}
     </group>
   )
 }

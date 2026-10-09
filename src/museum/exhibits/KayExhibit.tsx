@@ -4,7 +4,7 @@ import { IllustratedPlacard } from './IllustratedPlacard'
 import { PortraitMural } from './PortraitMural'
 import { portraitFrames } from '../framing'
 
-export function KayExhibit({ active, moving, shapeX, shapeScale, onContinue }: { active: boolean, moving: boolean, shapeX: number, shapeScale: number, onContinue: () => void }) {
+export function KayExhibit({ active, moving, shapeX, shapeScale, onContinue, onPrevious }: { active: boolean, moving: boolean, shapeX: number, shapeScale: number, onContinue: () => void, onPrevious: () => void }) {
   return (
     <group>
       <PortraitMural image={`${import.meta.env.BASE_URL}portraits/alan-kay-ink.png`} {...portraitFrames.kay} opacity={0.75} />
@@ -16,7 +16,7 @@ export function KayExhibit({ active, moving, shapeX, shapeScale, onContinue }: {
       </group>
       <mesh position={[0, 0.38, -8.95]} rotation={[-0.05, 0, 0]}><boxGeometry args={[3.35, 0.15, 1.6]} /><meshStandardMaterial color="#e8e5dc" roughness={1} /><Edges color="#292a26" threshold={10} /></mesh>
       {active && <IllustratedPlacard variant="kay" position={[1.85, 3.15, -10.68]} />}
-      {active && <ContinueTourSign position={[0, 0.55, -10.3]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} />}
+      {active && <ContinueTourSign position={[0, 0.55, -10.3]} label="CONTINUE TOUR →" disabled={moving} onContinue={onContinue} onPrevious={onPrevious} />}
     </group>
   )
 }

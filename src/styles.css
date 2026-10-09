@@ -52,6 +52,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .tour-sign small { color: #6d6b64; font-family: 'Caveat', cursive; font-size: .9rem; letter-spacing: 0; transform: rotate(2deg); }
 .tour-sign:hover, .tour-sign:focus-visible { transform: rotate(.2deg) translateY(-3px); background: #eef8fc; box-shadow: 7px 9px 0 rgba(120,184,211,.48); }
 .tour-sign:disabled { cursor: wait; opacity: .6; }
+.tour-signs { display: flex; align-items: center; gap: .65rem; }
+.tour-sign--previous { width: 10rem; justify-content: center; }
+.exhibit-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
 .portrait-label { width: 7rem; padding: .45rem .5rem; border: 1.5px solid var(--ink); background: var(--paper); color: var(--ink); text-align: center; font-family: 'Manrope', sans-serif; font-size: .52rem; font-weight: 600; letter-spacing: .13em; transform: rotate(1deg); box-shadow: 3px 3px 0 rgba(120,184,211,.5); }
 .mobile-next { display: none; }
 

@@ -59,6 +59,11 @@ function App() {
     navigateToStation(station.nextStation)
   }, [navigateToStation, station.nextStation])
 
+  const goBack = useCallback(() => {
+    const previous = previousStation(stationId)
+    if (previous) navigateToStation(previous)
+  }, [navigateToStation, stationId])
+
   const handleWebglError = useCallback(() => {
     setWebglFailed(true)
     setMoving(false)
@@ -105,19 +110,19 @@ function App() {
 
       <ErrorBoundary fallback={fallback} onError={handleWebglError}>
         <Suspense fallback={<p className="scene-loading" role="status">Preparing the exhibition… You can explore selected work while it loads.</p>}>
-        <MuseumScene station={station} moving={moving} reducedMotion={effectiveReducedMotion} engelbartNode={engelbartNode} kayShape={kayShape} physics={physics} onContinue={continueTour} onArrival={() => setMoving(false)} forceFailure={forceWebglFailure} />
+        <MuseumScene station={station} moving={moving} reducedMotion={effectiveReducedMotion} engelbartNode={engelbartNode} kayShape={kayShape} physics={physics} onContinue={continueTour} onPrevious={goBack} onArrival={() => setMoving(false)} forceFailure={forceWebglFailure} />
         </Suspense>
       </ErrorBoundary>
 
       <div id="exhibit-content" tabIndex={-1}>
-        <ExhibitOverlay station={station} moving={moving} reducedMotion={effectiveReducedMotion} onContinue={continueTour} onPortfolio={openPortfolio} />
+        <ExhibitOverlay station={station} moving={moving} reducedMotion={effectiveReducedMotion} onContinue={continueTour} onPrevious={goBack} onPortfolio={openPortfolio} />
         {station.interactionEnabled && station.id !== 'james' && !moving && (
           <ExhibitInteraction stationId={station.id} engelbartNode={engelbartNode} setEngelbartNode={setEngelbartNode} kayShape={kayShape} setKayShape={setKayShape} physics={physics} setPhysics={setPhysics} />
         )}
       </div>
 
       <footer className="museum-footer"><span>DESIGNED & BUILT BY JAMES LANE</span><nav aria-label="Exhibition navigation">
-        <button disabled={moving || !previousStation(stationId)} onClick={() => { const previous = previousStation(stationId); if (previous) navigateToStation(previous) }}>← Previous</button>
+        <button disabled={moving || !previousStation(stationId)} onClick={goBack}>← Previous</button>
         <span aria-live="polite">{moving ? 'Moving…' : `${station.index + 1} / ${stations.length}`}</span>
         {station.nextStation ? <button disabled={moving} onClick={continueTour}>Next →</button> : <button onClick={openPortfolio}>View work ↗</button>}
       </nav></footer>

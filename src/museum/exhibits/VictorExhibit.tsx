@@ -10,7 +10,7 @@ import { advanceProjectile, createProjectileState, type PhysicsValues } from '..
 
 export type { PhysicsValues } from '../physics/projectile'
 
-export function VictorExhibit({ active, moving, physics, reducedMotion, onContinue }: { active: boolean, moving: boolean, physics: PhysicsValues, reducedMotion: boolean, onContinue: () => void }) {
+export function VictorExhibit({ active, moving, physics, reducedMotion, onContinue, onPrevious }: { active: boolean, moving: boolean, physics: PhysicsValues, reducedMotion: boolean, onContinue: () => void, onPrevious: () => void }) {
   const ball = useRef<Mesh>(null)
   const clock = useRef({ state: createProjectileState(physics), remainder: 0 })
 
@@ -31,7 +31,7 @@ export function VictorExhibit({ active, moving, physics, reducedMotion, onContin
       <mesh position={[5.26, 0.93, -18.4]}><boxGeometry args={[3.1, 0.06, 0.08]} /><meshStandardMaterial color="#282924" /></mesh>
       {[4, 4.65, 5.3, 5.95, 6.6].map((x) => <mesh key={x} position={[x, 1.15, -18.35]}><boxGeometry args={[0.025, 0.22, 0.04]} /><meshStandardMaterial color="#282924" /></mesh>)}
       {active && <IllustratedPlacard variant="victor" position={[4.1, 3.15, -18.3]} physics={physics} />}
-      {active && <ContinueTourSign position={[5.8, 0.55, -18.3]} label="ONE EXHIBIT REMAINS →" disabled={moving} onContinue={onContinue} />}
+      {active && <ContinueTourSign position={[5.8, 0.55, -18.3]} label="ONE EXHIBIT REMAINS →" disabled={moving} onContinue={onContinue} onPrevious={onPrevious} />}
     </group>
   )
 }
