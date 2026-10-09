@@ -172,7 +172,7 @@ button:disabled { opacity: .45; cursor: default; }
 .entrance-board .eyebrow, .exhibit-copy--entrance .eyebrow { display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem; }
 .entrance-board .eyebrow strong, .exhibit-copy--entrance .eyebrow strong { font-size: 1.15rem; letter-spacing: .04em; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: .2rem; }
 .entrance-board h1 { position: relative; margin: 12px 0; font-size: 80px; line-height: .92; font-weight: 400; letter-spacing: -.065em; }
-.entrance-board > p:not(.eyebrow) { margin: 10px 0 20px; font-size: 15px; line-height: 1.55; }
+.entrance-board > p:not(.eyebrow) { margin: 10px 0 12px; font-size: 15px; line-height: 1.55; }
 .ink-star { position: absolute; right: 50px; top: 22px; color: var(--accent-ink); font-family: serif; font-size: 115px; transform: rotate(-12deg); }
 .entrance-board__bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #aaa79d; padding-top: 13px; }
 .entrance-board__bottom button { border: 1.5px solid var(--ink); border-radius: 2px 5px 3px 6px; background: var(--paper-bright); padding: 9px 12px; font-size: 15px; font-weight: 600; cursor: pointer; transform: rotate(-.4deg); box-shadow: 3px 3px 0 var(--accent); transition: transform .2s, box-shadow .2s, background .2s; }
