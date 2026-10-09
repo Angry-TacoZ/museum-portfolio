@@ -16,8 +16,8 @@ export type Station = {
 export const stations: Station[] = [
   {
     id: 'entrance', index: 0, cameraPosition: [0, 2.45, 10.5], cameraTarget: [0, 2, 0],
-    eyebrow: 'James Lane · An interactive exhibition', title: 'Tools for\nthinking',
-    subtitle: 'Three ideas that changed computing. A small museum about building on them.', nextStation: 'engelbart',
+    eyebrow: 'Built for Notion · An interactive project', title: 'Tools for\nthinking',
+    subtitle: 'An independent project by James Lane for the Notion team. Explore three ideas that shaped tools for thinking.', nextStation: 'engelbart',
     nextLabel: 'ENTER EXHIBIT →', interactionEnabled: false,
   },
   {

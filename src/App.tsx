@@ -5,6 +5,7 @@ import { ExhibitOverlay } from './ui/ExhibitOverlay'
 import { ExhibitInteraction } from './ui/ExhibitInteraction'
 import { PortfolioPreview } from './ui/PortfolioPreview'
 import { ErrorBoundary } from './ErrorBoundary'
+import { BackgroundMusic } from './ui/BackgroundMusic'
 
 const MuseumScene = lazy(() => import('./museum/MuseumScene').then((module) => ({ default: module.MuseumScene })))
 
@@ -58,6 +59,11 @@ function App() {
     navigateToStation(station.nextStation)
   }, [navigateToStation, station.nextStation])
 
+  const goBack = useCallback(() => {
+    const previous = previousStation(stationId)
+    if (previous) navigateToStation(previous)
+  }, [navigateToStation, stationId])
+
   const handleWebglError = useCallback(() => {
     setWebglFailed(true)
     setMoving(false)
@@ -91,8 +97,9 @@ function App() {
         if (target) { event.preventDefault(); target.focus() }
       }}>Skip to exhibit content</a>
       <header className="museum-header">
-        <a className="wordmark" href="#" onClick={(event) => { event.preventDefault(); navigateToStation('entrance') }}>JAMES LANE <span>/ EXHIBIT 01</span></a>
+        <a className="wordmark" href="#" onClick={(event) => { event.preventDefault(); navigateToStation('entrance') }}>JAMES LANE <span>/ FOR NOTION</span></a>
         <button className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)}>{motionPaused ? 'Resume motion' : 'Pause motion'}</button>
+        <BackgroundMusic />
         <button className="header-work" onClick={openPortfolio}>Selected work ↗</button>
         <div className="route-progress" aria-label={`Station ${station.index + 1} of ${stations.length}`}>
           <span>{String(station.index + 1).padStart(2, '0')}</span>
@@ -103,19 +110,19 @@ function App() {
 
       <ErrorBoundary fallback={fallback} onError={handleWebglError}>
         <Suspense fallback={<p className="scene-loading" role="status">Preparing the exhibition… You can explore selected work while it loads.</p>}>
-        <MuseumScene station={station} moving={moving} reducedMotion={effectiveReducedMotion} engelbartNode={engelbartNode} kayShape={kayShape} physics={physics} onContinue={continueTour} onArrival={() => setMoving(false)} forceFailure={forceWebglFailure} />
+        <MuseumScene station={station} moving={moving} reducedMotion={effectiveReducedMotion} engelbartNode={engelbartNode} kayShape={kayShape} physics={physics} onContinue={continueTour} onPrevious={goBack} onArrival={() => setMoving(false)} forceFailure={forceWebglFailure} />
         </Suspense>
       </ErrorBoundary>
 
       <div id="exhibit-content" tabIndex={-1}>
-        <ExhibitOverlay station={station} moving={moving} reducedMotion={effectiveReducedMotion} onContinue={continueTour} onPortfolio={openPortfolio} />
+        <ExhibitOverlay station={station} moving={moving} reducedMotion={effectiveReducedMotion} onContinue={continueTour} onPrevious={goBack} onPortfolio={openPortfolio} />
         {station.interactionEnabled && station.id !== 'james' && !moving && (
           <ExhibitInteraction stationId={station.id} engelbartNode={engelbartNode} setEngelbartNode={setEngelbartNode} kayShape={kayShape} setKayShape={setKayShape} physics={physics} setPhysics={setPhysics} />
         )}
       </div>
 
       <footer className="museum-footer"><span>DESIGNED & BUILT BY JAMES LANE</span><nav aria-label="Exhibition navigation">
-        <button disabled={moving || !previousStation(stationId)} onClick={() => { const previous = previousStation(stationId); if (previous) navigateToStation(previous) }}>← Previous</button>
+        <button disabled={moving || !previousStation(stationId)} onClick={goBack}>← Previous</button>
         <span aria-live="polite">{moving ? 'Moving…' : `${station.index + 1} / ${stations.length}`}</span>
         {station.nextStation ? <button disabled={moving} onClick={continueTour}>Next →</button> : <button onClick={openPortfolio}>View work ↗</button>}
       </nav></footer>

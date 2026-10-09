@@ -32,6 +32,10 @@ To verify the no-WebGL experience locally, open `http://127.0.0.1:5173/?forceWeb
 
 The museum uses React for accessible content and controls, React Three Fiber for architecture and exhibit objects, and Framer Motion for interface transitions. Camera poses and route order live in `src/museum/stations.ts`.
 
+Exhibit cameras fit the installation's bounds to the actual canvas aspect ratio and refit after resizing or rotating the window. Portrait geometry is shared with the framing tests in `src/museum/framing.ts`; foreground gallery walls are clipped out of the active view. Narrow or short windows use a stacked canvas and scrollable text layout.
+
+Quiet, looping piano is enabled by default at 12% volume; the header's music toggle switches it off or back on. If the browser blocks autoplay, playback starts on the visitor's first interaction. Recording credits and reuse rights are documented in [`docs/AUDIO_SOURCES.md`](docs/AUDIO_SOURCES.md).
+
 ## Art direction
 
 The environment uses pale paper-like architecture, simplified grayscale forms, charcoal contours, original hand-drawn diagrams, and a single restrained light-blue accent. Taped placards, annotated controls, and project pin-ups make the spatial environment and interpretation surfaces feel like one illustrated editorial system without copying third-party illustrations or brand assets.
