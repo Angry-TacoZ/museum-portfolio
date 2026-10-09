@@ -151,6 +151,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .museum-shell { position: absolute; inset: 0; }
 .header-work { margin-left: 1.5rem; margin-right: 2.5rem; background: none; border: 0; border-bottom: 1px solid currentColor; padding: .4rem 0; font-size: .75rem; cursor: pointer; }
 .motion-toggle { margin-left: auto; border: 0; padding: .5rem; background: none; color: #62635d; font-size: .7rem; cursor: pointer; }
+.music-toggle { border: 0; padding: .5rem; background: none; color: #62635d; font-size: .7rem; cursor: pointer; white-space: nowrap; }
+.music-toggle[aria-pressed='true'] { color: var(--accent-ink); }
 .museum-header { background: rgba(247,245,238,.92); }
 .museum-footer { background: #f7f5ee; min-height: 3.6rem; }
 .museum-footer nav { display: flex; align-items: center; gap: 1.25rem; }
@@ -215,6 +217,7 @@ button:disabled { opacity: .45; cursor: default; }
   .museum-header { padding: .9rem 1.2rem; }
   .header-work { margin-right: 0; margin-left: .5rem; font-size: .7rem; }
   .motion-toggle { font-size: .6rem; padding: .5rem .2rem; }
+  .music-toggle { font-size: .6rem; padding: .5rem .3rem; }
   .route-progress { display: none; }
   .museum-app:not(.museum-app--entrance):not(.museum-app--fallback) .museum-canvas { left: 0 !important; width: 100% !important; top: 3.5rem !important; height: 44svh !important; }
   .museum-canvas { height: 44svh !important; top: 3.5rem !important; pointer-events: none; }
@@ -239,6 +242,11 @@ button:disabled { opacity: .45; cursor: default; }
   .museum-app--fallback #exhibit-content { margin-top: 0; padding-top: 14rem; }
   .museum-app--fallback .exhibit-copy, .museum-app--fallback .interaction-panel { position: relative; inset: auto; width: auto; }
   .webgl-fallback__content { top: 5rem; left: 1.2rem; width: calc(100% - 2.4rem); }
+}
+@media (max-width: 380px) {
+  .museum-header { padding-inline: .75rem; }
+  .wordmark, .motion-toggle, .header-work { white-space: nowrap; }
+  .header-work { margin-left: .35rem; }
 }
 @media (min-width: 761px) and (max-height: 720px) {
   .exhibit-copy:not(.exhibit-copy--entrance) { top: 12%; }

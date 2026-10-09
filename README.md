@@ -32,6 +32,8 @@ To verify the no-WebGL experience locally, open `http://127.0.0.1:5173/?forceWeb
 
 The museum uses React for accessible content and controls, React Three Fiber for architecture and exhibit objects, and Framer Motion for interface transitions. Camera poses and route order live in `src/museum/stations.ts`.
 
+The header's music toggle enables quiet, looping piano at 12% volume. Music starts off and loads only when enabled. Recording credits and reuse rights are documented in [`docs/AUDIO_SOURCES.md`](docs/AUDIO_SOURCES.md).
+
 ## Art direction
 
 The environment uses pale paper-like architecture, simplified grayscale forms, charcoal contours, original hand-drawn diagrams, and a single restrained light-blue accent. Taped placards, annotated controls, and project pin-ups make the spatial environment and interpretation surfaces feel like one illustrated editorial system without copying third-party illustrations or brand assets.

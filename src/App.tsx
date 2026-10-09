@@ -5,6 +5,7 @@ import { ExhibitOverlay } from './ui/ExhibitOverlay'
 import { ExhibitInteraction } from './ui/ExhibitInteraction'
 import { PortfolioPreview } from './ui/PortfolioPreview'
 import { ErrorBoundary } from './ErrorBoundary'
+import { BackgroundMusic } from './ui/BackgroundMusic'
 
 const MuseumScene = lazy(() => import('./museum/MuseumScene').then((module) => ({ default: module.MuseumScene })))
 
@@ -93,6 +94,7 @@ function App() {
       <header className="museum-header">
         <a className="wordmark" href="#" onClick={(event) => { event.preventDefault(); navigateToStation('entrance') }}>JAMES LANE <span>/ FOR NOTION</span></a>
         <button className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)}>{motionPaused ? 'Resume motion' : 'Pause motion'}</button>
+        <BackgroundMusic />
         <button className="header-work" onClick={openPortfolio}>Selected work ↗</button>
         <div className="route-progress" aria-label={`Station ${station.index + 1} of ${stations.length}`}>
           <span>{String(station.index + 1).padStart(2, '0')}</span>
