@@ -20,7 +20,7 @@ export function PortraitMural({ image, position, scale = [3.75, 4.7], opacity = 
   return (
     <mesh position={position} renderOrder={1}>
       <planeGeometry args={scale} />
-      <meshBasicMaterial map={texture} transparent opacity={opacity} alphaTest={0.02} depthWrite={false} side={DoubleSide} toneMapped={false} />
+      <meshBasicMaterial map={texture} transparent opacity={opacity} alphaTest={0.02} depthWrite={false} side={DoubleSide} toneMapped={false} fog={false} />
     </mesh>
   )
 }

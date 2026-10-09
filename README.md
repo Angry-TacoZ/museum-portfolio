@@ -32,7 +32,9 @@ To verify the no-WebGL experience locally, open `http://127.0.0.1:5173/?forceWeb
 
 The museum uses React for accessible content and controls, React Three Fiber for architecture and exhibit objects, and Framer Motion for interface transitions. Camera poses and route order live in `src/museum/stations.ts`.
 
-The header's music toggle enables quiet, looping piano at 12% volume. Music starts off and loads only when enabled. Recording credits and reuse rights are documented in [`docs/AUDIO_SOURCES.md`](docs/AUDIO_SOURCES.md).
+Exhibit cameras fit the installation's bounds to the actual canvas aspect ratio and refit after resizing or rotating the window. Portrait geometry is shared with the framing tests in `src/museum/framing.ts`; foreground gallery walls are clipped out of the active view. Narrow or short windows use a stacked canvas and scrollable text layout.
+
+Quiet, looping piano is enabled by default at 12% volume; the header's music toggle switches it off or back on. If the browser blocks autoplay, playback starts on the visitor's first interaction. Recording credits and reuse rights are documented in [`docs/AUDIO_SOURCES.md`](docs/AUDIO_SOURCES.md).
 
 ## Art direction
 

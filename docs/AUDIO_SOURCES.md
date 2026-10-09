@@ -13,4 +13,4 @@ The source recording was converted to mono MP3 at 96 kbps with FFmpeg:
 ffmpeg -i Gymnopedie_No._1..ogg -codec:a libmp3lame -b:a 96k -ac 1 gymnopedie-no-1.mp3
 ```
 
-The track is served locally, including under the GitHub Pages base path. It loops at 12% volume, starts only after the visitor presses the music button, and pauses when toggled off. `preload="none"` avoids downloading the track before the visitor enables it. Playback is independent of the motion preference and continues between exhibits and while viewing selected work.
+The track is served locally, including under the GitHub Pages base path. Music is enabled by default and attempts playback at 12% volume. When the browser blocks autoplay, a pointer or keyboard interaction starts playback unless the visitor has switched music off. The off switch also cancels playback that was still loading. Playback loops, remains independent of the motion preference, and continues between exhibits and while viewing selected work.
