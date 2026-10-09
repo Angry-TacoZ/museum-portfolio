@@ -167,6 +167,8 @@ button:disabled { opacity: .45; cursor: default; }
 .interaction-panel > p:not(.panel-kicker) { font-size: .72rem; }
 .exhibit-copy--entrance { display: none; }
 .entrance-board { width: 700px; height: 340px; padding: 12px 20px; color: var(--ink); }
+.entrance-board .eyebrow, .exhibit-copy--entrance .eyebrow { display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem; }
+.entrance-board .eyebrow strong, .exhibit-copy--entrance .eyebrow strong { font-size: 1.15rem; letter-spacing: .04em; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: .2rem; }
 .entrance-board h1 { position: relative; margin: 12px 0; font-size: 80px; line-height: .92; font-weight: 400; letter-spacing: -.065em; }
 .entrance-board > p:not(.eyebrow) { margin: 10px 0 20px; font-size: 15px; line-height: 1.55; }
 .ink-star { position: absolute; right: 50px; top: 22px; color: var(--accent-ink); font-family: serif; font-size: 115px; transform: rotate(-12deg); }

@@ -15,7 +15,7 @@ export function ExhibitOverlay({ station, moving, reducedMotion, onContinue, onP
   return (
     <AnimatePresence mode="wait">
       <motion.section key={station.id} className={`exhibit-copy exhibit-copy--${station.id}`} initial={reducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: moving ? 0.42 : 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: reducedMotion ? 0 : 0.5 }} aria-live="polite">
-        <p className="eyebrow">{station.eyebrow}</p>
+        <p className="eyebrow">{station.id === 'entrance' ? <><strong>Built for Notion</strong><span> / An interactive project</span></> : station.eyebrow}</p>
         <h1>{station.title.split('\n').map((line) => <span key={line}>{line}</span>)}</h1>
         {station.id === 'james' && <p className="installation-label">INSTALLATION IN PROGRESS</p>}
         <p className="station-summary">{text}</p>

@@ -91,7 +91,7 @@ function App() {
         if (target) { event.preventDefault(); target.focus() }
       }}>Skip to exhibit content</a>
       <header className="museum-header">
-        <a className="wordmark" href="#" onClick={(event) => { event.preventDefault(); navigateToStation('entrance') }}>JAMES LANE <span>/ EXHIBIT 01</span></a>
+        <a className="wordmark" href="#" onClick={(event) => { event.preventDefault(); navigateToStation('entrance') }}>JAMES LANE <span>/ FOR NOTION</span></a>
         <button className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)}>{motionPaused ? 'Resume motion' : 'Pause motion'}</button>
         <button className="header-work" onClick={openPortfolio}>Selected work ↗</button>
         <div className="route-progress" aria-label={`Station ${station.index + 1} of ${stations.length}`}>
