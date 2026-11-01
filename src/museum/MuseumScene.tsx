@@ -19,12 +19,13 @@ type MuseumSceneProps = {
   kayShape: { x: number, scale: number }
   physics: PhysicsValues
   onContinue: () => void
+  onPrevious: () => void
   onArrival: () => void
   forceFailure?: boolean
 }
 
 export function MuseumScene(props: MuseumSceneProps) {
-  const { station, moving, reducedMotion, engelbartNode, kayShape, physics, onContinue, onArrival, forceFailure = false } = props
+  const { station, moving, reducedMotion, engelbartNode, kayShape, physics, onContinue, onPrevious, onArrival, forceFailure = false } = props
   if (forceFailure) throw new Error('Forced WebGL failure for fallback verification')
   return (
     <Canvas
@@ -39,9 +40,9 @@ export function MuseumScene(props: MuseumSceneProps) {
         <MuseumLighting />
         <MuseumEnvironment />
         <EntranceExhibit active={station.id === 'entrance'} moving={moving} onContinue={onContinue} />
-        <EngelbartExhibit active={station.id === 'engelbart'} moving={moving} node={engelbartNode} onContinue={onContinue} />
-        <KayExhibit active={station.id === 'kay'} moving={moving} shapeX={kayShape.x} shapeScale={kayShape.scale} onContinue={onContinue} />
-        <VictorExhibit active={station.id === 'victor'} moving={moving} physics={physics} reducedMotion={reducedMotion} onContinue={onContinue} />
+        <EngelbartExhibit active={station.id === 'engelbart'} moving={moving} node={engelbartNode} onContinue={onContinue} onPrevious={onPrevious} />
+        <KayExhibit active={station.id === 'kay'} moving={moving} shapeX={kayShape.x} shapeScale={kayShape.scale} onContinue={onContinue} onPrevious={onPrevious} />
+        <VictorExhibit active={station.id === 'victor'} moving={moving} physics={physics} reducedMotion={reducedMotion} onContinue={onContinue} onPrevious={onPrevious} />
         <JamesExhibit active={station.id === 'james'} />
         <ContactShadows position={[0, 0, -13]} scale={32} opacity={0.14} blur={3.2} far={7} color="#565750" />
       </Suspense>

@@ -33,6 +33,28 @@ async function next(page: Page) {
   await button.click()
 }
 
+test('central exhibit controls navigate both ways after resizing', async ({ page }) => {
+  test.skip(webglFallback, 'The fallback uses the footer navigation.')
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await openMuseum(page)
+  await expectInitialContent(page)
+
+  for (const size of [{ width: 1440, height: 900 }, { width: 800, height: 1100 }]) {
+    await page.setViewportSize(size)
+    await next(page)
+    for (let station = 2; station <= 4; station++) {
+      await expect(page.getByText(`${station} / 5`, { exact: true })).toBeVisible()
+      await page.getByRole('navigation', { name: 'Exhibit controls', exact: true }).getByRole('button').last().click()
+    }
+    await expect(page.getByText('5 / 5', { exact: true })).toBeVisible()
+    for (let station = 4; station >= 1; station--) {
+      // A real click catches CSS 3D depth placing the sign behind the canvas.
+      await page.getByRole('button', { name: 'Previous exhibit', exact: true }).click()
+      await expect(page.getByText(`${station} / 5`, { exact: true })).toBeVisible()
+    }
+  }
+})
+
 test(`${pagesBasePath === '/' ? 'Root path' : 'Pages base path'} loads all portrait textures in the WebGL scene`, async ({ page }) => {
   test.skip(webglFallback, 'Windows CI uses the accessible fallback; Ubuntu verifies full WebGL.')
   const portraits = new Map<string, number>()

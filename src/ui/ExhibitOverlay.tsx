@@ -7,7 +7,7 @@ const sources: Record<string, { url: string, label: string }> = {
   victor: { url: 'https://worrydream.com/ExplorableExplanations/', label: 'Read Explorable Explanations' },
 }
 
-export function ExhibitOverlay({ station, moving, reducedMotion, onContinue, onPortfolio }: { station: Station, moving: boolean, reducedMotion: boolean, onContinue: () => void, onPortfolio: () => void }) {
+export function ExhibitOverlay({ station, moving, reducedMotion, onContinue, onPrevious, onPortfolio }: { station: Station, moving: boolean, reducedMotion: boolean, onContinue: () => void, onPrevious: () => void, onPortfolio: () => void }) {
   const text = station.id === 'james'
     ? 'I’m James, a career-changing product builder working across interaction design and frontend engineering. I turn complicated decisions into interfaces people can inspect, change, and understand. This installation is still in progress. The projects are ready to explore.'
     : station.subtitle
@@ -15,12 +15,12 @@ export function ExhibitOverlay({ station, moving, reducedMotion, onContinue, onP
   return (
     <AnimatePresence mode="wait">
       <motion.section key={station.id} className={`exhibit-copy exhibit-copy--${station.id}`} initial={reducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: moving ? 0.42 : 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: reducedMotion ? 0 : 0.5 }} aria-live="polite">
-        <p className="eyebrow">{station.eyebrow}</p>
+        <p className="eyebrow">{station.id === 'entrance' ? <><strong>Built for Notion</strong><span> / An interactive project</span></> : station.eyebrow}</p>
         <h1>{station.title.split('\n').map((line) => <span key={line}>{line}</span>)}</h1>
         {station.id === 'james' && <p className="installation-label">INSTALLATION IN PROGRESS</p>}
         <p className="station-summary">{text}</p>
         {sources[station.id] && <a className="source-link" href={sources[station.id].url} target="_blank" rel="noreferrer">{sources[station.id].label} ↗<span className="sr-only"> (new tab)</span></a>}
-        {station.id === 'james' && <button className="portfolio-cta" onClick={onPortfolio}>EXPLORE MY WORK →</button>}
+        {station.id === 'james' && <div className="exhibit-actions"><button className="portfolio-cta" disabled={moving} onClick={onPrevious} aria-label="Previous exhibit">← PREVIOUS</button><button className="portfolio-cta" onClick={onPortfolio}>EXPLORE MY WORK →</button></div>}
         {station.nextLabel && <button className="mobile-next" disabled={moving} onClick={onContinue}>{moving ? 'MOVING…' : station.nextLabel}</button>}
       </motion.section>
     </AnimatePresence>
